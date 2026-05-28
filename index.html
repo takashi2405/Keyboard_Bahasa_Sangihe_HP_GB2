@@ -59,7 +59,6 @@ h2 {
 #clearAllTop {
   position: static !important;       /* 絶対配置は使わず、Flexboxの右端に綺麗に配置 */
   padding: 6px 10px !important;
-  /* 💡 border:noneによるクリック判定消失を防ぐため、背景と同色の枠線を設定 */
   border: 1px solid #777777 !important;
   border-radius: 6px !important;
   background: #f8f9fa !important;
@@ -86,7 +85,6 @@ h2 {
   flex:1;
   margin:6px;
   padding:10px;
-  /* 💡 枠線を消しつつカーソルのガタつき（文字ブレ）を完全に防ぐ設定 */
   border: 1px solid #ffffff !important;
   border-radius:10px;
   font-size:20px;
@@ -126,9 +124,9 @@ h2 {
   gap:4px;
 }
 
-.key{
+/* 💡 すべてのボタン（通常キー・機能キー共通）の基本形 */
+.btn-base {
   height:42px;
-  /* 💡 クリック不可バグを防ぐため、1pxの透明な枠線を持たせて領域を維持 */
   border: 1px solid transparent;
   border-radius:8px;
   background:#f8f9fa;                
@@ -137,19 +135,20 @@ h2 {
   user-select:none;
 }
 
-.key.active{
+/* 💡 Shiftが有効なときに青く光るスタイル */
+.btn-base.active{
   background:#4dabf7;
   color:#fff;
 }
 
 /* キーやボタンを押した瞬間の沈み込みエフェクト */
-.key:active, #clearAllTop:active {
+.btn-base:active, #clearAllTop:active {
   transform: scale(0.95);       
   background: #e0e0e0;          
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); 
 }
 
-.key.active:active {
+.btn-base.active:active {
   transform: none;
   box-shadow: none;
 }
@@ -181,7 +180,7 @@ h2 {
 <div class="header">
   <div class="title-block">
     <h2>Keyboard Bahasa Sangihe</h2>
-    <div class="footer-text">© 2026 Takashi NAKAGAWA [1319]</div>
+    <div class="footer-text">© 2026 Takashi NAKAGAWA [1323]</div>
   </div>
   <button id="clearAllTop">Hapus Semua</button>
 </div>
@@ -191,282 +190,55 @@ h2 {
 <div class="keyboard">
 
 <div class="row row1">
-<button class="key salins" id="copyAll">Salin Semua</button>
-<button class="key arrow" id="left">←</button>
-<button class="key arrow" id="up">↑</button>
-<button class="key arrow" id="down">↓</button>
-<button class="key arrow" id="right">→</button>
-<button class="key del" id="del">Del</button>
+<button class="btn-base salins" id="copyAll">Salin Semua</button>
+<button class="btn-base arrow" id="left">←</button>
+<button class="btn-base arrow" id="up">↑</button>
+<button class="btn-base arrow" id="down">↓</button>
+<button class="btn-base arrow" id="right">→</button>
+<button class="btn-base del" id="del">Del</button>
 </div>
 
 <div class="row">
-<button class="key letter" data-low="́" data-upp="~">́</button>
-<button class="key letter" data-low="-" data-upp="_">-</button>
-<button class="key letter" data-low="=" data-upp="+">=</button>
-<button class="key letter" data-low="[" data-upp="{">[</button>
-<button class="key letter" data-low="]" data-upp="}">]</button>
-<button class="key letter" data-low="&#x005C;" data-upp="|">&#x005C;</button>
-<button class="key letter" data-low=";" data-upp=":">;</button>
-<button class="key letter" data-low="'" data-upp='"'>'</button>
-<button class="key letter" data-low="/" data-upp="?">/</button>
-<button class="key" id="backBtn">⌫</button>
+<button class="btn-base letter" data-low="́" data-upp="~">́</button>
+<button class="btn-base letter" data-low="-" data-upp="_">-</button>
+<button class="btn-base letter" data-low="=" data-upp="+">=</button>
+<button class="btn-base letter" data-low="[" data-upp="{">[</button>
+<button class="btn-base letter" data-low="]" data-upp="}">]</button>
+<button class="btn-base letter" data-low="&#x005C;" data-upp="|">&#x005C;</button>
+<button class="btn-base letter" data-low=";" data-upp=":">;</button>
+<button class="btn-base letter" data-low="'" data-upp='"'>'</button>
+<button class="btn-base letter" data-low="/" data-upp="?">/</button>
+<button class="btn-base" id="backBtn">⌫</button>
 </div>
 
 <div class="row">
-<button class="key letter" data-low="1" data-upp="!">1</button>
-<button class="key letter" data-low="2" data-upp="@">2</button>
-<button class="key letter" data-low="3" data-upp="#">3</button>
-<button class="key letter" data-low="4" data-upp="$">4</button>
-<button class="key letter" data-low="5" data-upp="%">5</button>
-<button class="key letter" data-low="6" data-upp="^">6</button>
-<button class="key letter" data-low="7" data-upp="&">7</button>
-<button class="key letter" data-low="8" data-upp="*">8</button>
-<button class="key letter" data-low="9" data-upp="(">9</button>
-<button class="key letter" data-low="0" data-upp=")">0</button>
+<button class="btn-base letter" data-low="1" data-upp="!">1</button>
+<button class="btn-base letter" data-low="2" data-upp="@">2</button>
+<button class="btn-base letter" data-low="3" data-upp="#">3</button>
+<button class="btn-base letter" data-low="4" data-upp="$">4</button>
+<button class="btn-base letter" data-low="5" data-upp="%">5</button>
+<button class="btn-base letter" data-low="6" data-upp="^">6</button>
+<button class="btn-base letter" data-low="7" data-upp="&">7</button>
+<button class="btn-base letter" data-low="8" data-upp="*">8</button>
+<button class="btn-base letter" data-low="9" data-upp="(">9</button>
+<button class="btn-base letter" data-low="0" data-upp=")">0</button>
 </div>
 
 <div class="row">
-<button class="key letter" data-low="q" data-upp="Q">q</button>
-<button class="key letter" data-low="w" data-upp="W">w</button>
-<button class="key letter" data-low="e" data-upp="E">e</button>
-<button class="key letter" data-low="r" data-upp="R">r</button>
-<button class="key letter" data-low="t" data-upp="T">t</button>
-<button class="key letter" data-low="y" data-upp="Y">y</button>
-<button class="key letter" data-low="u" data-upp="U">u</button>
-<button class="key letter" data-low="i" data-upp="I">i</button>
-<button class="key letter" data-low="o" data-upp="O">o</button>
-<button class="key letter" data-low="p" data-upp="P">p</button>
+<button class="btn-base letter" data-low="q" data-upp="Q">q</button>
+<button class="btn-base letter" data-low="w" data-upp="W">w</button>
+<button class="btn-base letter" data-low="e" data-upp="E">e</button>
+<button class="btn-base letter" data-low="r" data-upp="R">r</button>
+<button class="btn-base letter" data-low="t" data-upp="T">t</button>
+<button class="btn-base letter" data-low="y" data-upp="Y">y</button>
+<button class="btn-base letter" data-low="u" data-upp="U">u</button>
+<button class="btn-base letter" data-low="i" data-upp="I">i</button>
+<button class="btn-base letter" data-low="o" data-upp="O">o</button>
+<button class="btn-base letter" data-low="p" data-upp="P">p</button>
 </div>
 
 <div class="row">
-<button class="key letter" data-low="a" data-upp="A">a</button>
-<button class="key letter" data-low="s" data-upp="S">s</button>
-<button class="key letter" data-low="ĕ" data-upp="Ĕ">ĕ</button>
-<button class="key letter" data-low="d" data-upp="D">d</button>
-<button class="key letter" data-low="f" data-upp="F">f</button>
-<button class="key letter" data-low="g" data-upp="G">g</button>
-<button class="key letter" data-low="h" data-upp="H">h</button>
-<button class="key letter" data-low="j" data-upp="J">j</button>
-<button class="key letter" data-low="k" data-upp="K">k</button>
-<button class="key letter" data-low="l" data-upp="L">l</button>
-</div>
-
-<div class="row">
-<button class="key letter" data-low="&#x0323;" data-upp="&#x0323;">&#x25CC;&#x0323;</button>
-<button class="key letter" data-low="z" data-upp="Z">z</button>
-<button class="key letter" data-low="x" data-upp="X">x</button>
-<button class="key letter" data-low="c" data-upp="C">c</button>
-<button class="key letter" data-low="v" data-upp="V">v</button>
-<button class="key letter" data-low="b" data-upp="B">b</button>
-<button class="key letter" data-low="n" data-upp="N">n</button>
-<button class="key letter" data-low="m" data-upp="M">m</button>
-<button class="key letter" data-low="l᷊" data-upp="L᷊">l᷊</button>
-<button class="key letter" data-low="," data-upp="<">,</button>
-</div>
-
-<div class="row row7">
-<button class="key" id="shift">Shift</button>
-<button class="key" id="caps">Caps</button>
-<button class="key" id="space">Space</button>
-<button class="key letter" data-low="." data-upp=">">.</button>
-<button class="key" id="enter">Enter</button>
-</div>
-
-</div>
-
-<script>
-let buf = "";
-let cur = 0;
-let shift = false;
-let caps = false;
-
-const ed = document.getElementById("editor");
-const segmenter = new Intl.Segmenter("id", { granularity: "grapheme" });
-
-function getGraphemes(text) {
-  return Array.from(segmenter.segment(text)).map(s => s.segment);
-}
-
-function isUpper(){
-  return shift ^ caps;
-}
-
-function render(){
-  ed.textContent = ""; 
-
-  const chars = getGraphemes(buf);
-  
-  ed.append(chars.slice(0, cur).join(""));
-
-  const caret = document.createElement("span");
-  caret.id = "caret";
-  ed.appendChild(caret);
-
-  ed.append(chars.slice(cur).join(""));
-
-  document.querySelectorAll(".letter").forEach(k=>{
-    k.textContent = isUpper() ? k.dataset.upp : k.dataset.low;
-  });
-
-  document.getElementById("space").textContent = shift ? "Tab" : "Space";
-  
-  const shiftBtn = document.getElementById("shift");
-  if (shiftBtn) shiftBtn.classList.toggle("active", shift);
-  
-  const capsBtn = document.getElementById("caps");
-  if (capsBtn) capsBtn.classList.toggle("active", caps);
-}
-
-/* INPUT */
-function insert(v){
-  const chars = getGraphemes(buf);
-  chars.splice(cur, 0, v);
-  buf = chars.join("");
-  
-  cur++; 
-  if(shift) shift = false;
-  render();
-}
-
-function backspace(){
-  if(cur <= 0) return;
-  const chars = getGraphemes(buf);
-  chars.splice(cur - 1, 1);
-  buf = chars.join("");
-  cur--;
-  render();
-}
-
-function delForward(){
-  const chars = getGraphemes(buf);
-  if(cur >= chars.length) return;
-  chars.splice(cur, 1);
-  buf = chars.join("");
-  render();
-}
-
-/* CURSOR */
-function move(dir){
-  const chars = getGraphemes(buf);
-  
-  if(dir === "left") {
-    cur = Math.max(0, cur - 1);
-    render();
-    return;
-  }
-  if(dir === "right") {
-    cur = Math.min(chars.length, cur + 1);
-    render();
-    return;
-  }
-
-  // 安全な行分割ロジック
-  const lines = []; 
-  const lineStartIndices = []; 
-  
-  let currentLine = [];
-  lineStartIndices.push(0);
-  
-  for(let i = 0; i < chars.length; i++) {
-    currentLine.push(chars[i]);
-    if(chars[i] === "\n") {
-      lines.push(currentLine);
-      currentLine = [];
-      lineStartIndices.push(i + 1);
-    }
-  }
-  lines.push(currentLine); 
-
-  let currentLineIdx = 0;
-  let col = 0;
-  
-  for(let i = 0; i < lineStartIndices.length; i++) {
-    if(cur >= lineStartIndices[i]) {
-      currentLineIdx = i;
-      col = cur - lineStartIndices[i];
-    }
-  }
-
-  // UP / DOWN の位置計算（エッジケース対応版）
-  if(dir === "up"){
-    if(currentLineIdx === 0) return; 
-    let targetLineIdx = currentLineIdx - 1;
-    let maxCol = lines[targetLineIdx].length;
-    if(maxCol > 0 && lines[targetLineIdx][maxCol - 1] === "\n") maxCol--; 
-    
-    let targetCol = Math.min(col, maxCol);
-    cur = lineStartIndices[targetLineIdx] + targetCol;
-  }
-
-  if(dir === "down"){
-    if(currentLineIdx === lines.length - 1) return; 
-    let targetLineIdx = currentLineIdx + 1;
-    let maxCol = lines[targetLineIdx].length;
-    if(maxCol > 0 && lines[targetLineIdx][maxCol - 1] === "\n") maxCol--;
-
-    let targetCol = Math.min(col, maxCol);
-    cur = lineStartIndices[targetLineIdx] + targetCol;
-  }
-
-  render();
-}
-
-/* EVENTS */
-document.querySelectorAll(".letter").forEach(k=>{
-  k.onclick = () => insert(isUpper() ? k.dataset.upp : k.dataset.low);
-});
-
-const sBtn = document.getElementById("shift");
-if (sBtn) {
-  sBtn.onclick = () => {
-    shift = !shift;
-    render();
-  };
-}
-
-const cBtn = document.getElementById("caps");
-if (cBtn) {
-  cBtn.onclick = () => {
-    caps = !caps;
-    render();
-  };
-}
-
-document.getElementById("space").onclick = () => insert(shift ? "\t" : " ");
-document.getElementById("enter").onclick = () => insert("\n");
-
-document.getElementById("backBtn").onclick = backspace;
-document.getElementById("del").onclick = delForward;
-
-document.getElementById("left").onclick = () => move("left");
-document.getElementById("right").onclick = () => move("right");
-document.getElementById("up").onclick = () => move("up");
-document.getElementById("down").onclick = () => move("down");
-
-document.getElementById("copyAll").onclick = () => navigator.clipboard.writeText(buf);
-document.getElementById("clearAllTop").onclick = () => {
-  buf = ""; cur = 0; render();
-};
-
-/* 📋 貼り付け（Paste）イベントの処理 */
-document.addEventListener("paste", (e) => {
-  e.preventDefault();
-  const pastedText = (e.clipboardData || window.clipboardData).getData("text");
-
-  if (pastedText) {
-    const chars = getGraphemes(buf);
-    const pastedChars = getGraphemes(pastedText);
-    
-    chars.splice(cur, 0, ...pastedChars);
-    buf = chars.join("");
-    
-    cur += pastedChars.length;
-    render();
-  }
-});
-
-render();
-</script>
-
-</body>
-</html>
+<button class="btn-base letter" data-low="a" data-upp="A">a</button>
+<button class="btn-base letter" data-low="s" data-upp="S">s</button>
+<button class="btn-base letter" data-low="ĕ" data-upp="Ĕ">ĕ</button>
+<button class="btn-base letter" data-low="d" data-upp="
