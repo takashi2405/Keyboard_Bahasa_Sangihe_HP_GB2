@@ -19,41 +19,40 @@ body {
 
 .header {
   display: flex;
-  flex-direction: column; /* 💡 スマホでは縦並びに（かぶらなくなります） */
-  align-items: flex-end;   /* 💡 全体を右寄せにします */
+  flex-direction: column;     /* スマホでは安全のため縦並びにする */
+  align-items: stretch;       /* 子要素の横幅をいっぱいに広げる */
   justify-content: center;
-  gap: 8px;                /* 💡 タイトルとボタンの間の隙間 */
+  gap: 8px;                   /* 縦並びのときのタイトルとボタンの隙間 */
   padding: 8px;
 }
 
 h2 {
   margin: 0;
   font-size: 18px;
-  text-align: right;       /* 💡 タイトルを右寄せ */
+  text-align: left;           /* 💡 タイトルテキストは常に左寄せ */
 }
 
 #clearAllTop {
-  /* position: absolute;  ❌ これがあると重なる原因になるので削除、または無効化します */
-  position: static;        /* 💡 配置ルールを通常に戻します */
+  position: static;           /* 絶対配置を解除 */
   padding: 6px 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
   background: #f8f9fa;
   font-size: 12px;
+  align-self: flex-end;       /* 💡 【スマホ時】ボタンだけを右寄せにする */
 }
 
 /* 💻 画面の横幅が 480px 以上のとき（PCやタブレット）の設定 */
 @media (min-width: 480px) {
   .header {
-    flex-direction: row;   /* 横並びに戻す */
+    flex-direction: row;         /* PCでは横並びに戻す */
+    justify-content: space-between; /* 💡 【PC時】タイトルを左端、ボタンを右端に強制的に振り分ける */
     align-items: center;
-    justify-content: flex-end; /* 右寄せ */
     position: relative;
   }
   
   #clearAllTop {
-    position: absolute;    /* 元の綺麗な配置に戻す */
-    right: 6px;
+    align-self: auto;            /* スマホ用の右寄せ設定をリセット（横並びの右端になります） */
   }
 }
 
@@ -236,7 +235,7 @@ padding:4px;
 
 </div>
 
-<div class="footer">© 2026 Takashi NAKAGAWA [1055]</div>
+<div class="footer">© 2026 Takashi NAKAGAWA [1112]</div>
 
 <script>
 let buf = "";
