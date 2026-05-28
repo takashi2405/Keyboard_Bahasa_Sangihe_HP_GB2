@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keyboard Bahasa Sangihe</title>
+
+<style>
+
+*{box-sizing:border-box;}
+
+body{
+    margin:0;
+    height:100dvh;
+    display:flex;
+    flex-direction:column;
+    font-family:sans-serif;
+}
+
+h2{
+    margin:0;
+    padding:6px;
+    text-align:center;
+    font-size:18px;
+}
+
+/* ===== TEXT AREA ===== */
+#editor{
+    flex:1;
+    margin:6px;
+    padding:10px;
+    border:2px solid #ccc;
+    border-radius:10px;
+    background:#fff;
+    font-size:20px;
+    white-space:pre-wrap;
+    word-break:break-word;
+    overflow:auto;
+}
+
+#caret{
+    display:inline-block;
+    width:2px;
+    height:1em;
+    background:black;
+    animation:blink 1s step-end infinite;
+}
+
+@keyframes blink{50%{opacity:0;}}
+
+/* ===== KEYBOARD ===== */
+.keyboard{
+    margin:6px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:repeat(10,1fr);
+    gap:4px;
+}
+
+.key{
+    height:42px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    background:#f8f9fa;
+    font-weight:600;
+    user-select:none;
+}
+
+/* Shift/Caps active */
+.key.active{
+    background:#4dabf7;
+    color:#fff;
+}
+
+/* letter upper mode */
+.key.upper{
+    text-transform:uppercase;
+}
+
+.footer{
+    text-align:center;
+    font-size:10px;
+    color:#666;
+    padding:4px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Keyboard Bahasa Sangihe</h2>
+
+<div id="editor"></div>
+
+<div class="keyboard">
+
+<!-- ROW 1 -->
+<div class="row">
+<button class="key" data-value="́">́</button>
+<button class="key" data-value="-">-</button>
+<button class="key" data-value="=">=</button>
+<button class="key" data-value="[">[</button>
+<button class="key" data-value="]">]</button>
+<button class="key" data-value="\"> \ </button>
+<button class="key" data-value=";">;</button>
+<button class="key" data-value="'">'</button>
+<button class="key" data-value="/">/</button>
+<button class="key" data-action="back">⌫</button>
+</div>
+
+<!-- ROW 2 -->
+<div class="row">
+<button class="key" data-value="1">1</button><button class="key" data-value="2">2</button><button class="key" data-value="3">3</button><button class="key" data-value="4">4</button><button class="key" data-value="5">5</button><button class="key" data-value="6">6</button><button class="key" data-value="7">7</button><button class="key" data-value="8">8</button><button class="key" data-value="9">9</button><button class="key" data-value="0">0</button>
+</div>
+
+<!-- ROW 3 -->
+<div class="row">
+<button class="key" data-value="q">q</button><button class="key" data-value="w">w</button><button class="key" data-value="e">e</button><button class="key" data-value="r">r</button><button class="key" data-value="t">t</button><button class="key" data-value="y">y</button><button class="key" data-value="u">u</button><button class="key" data-value="i">i</button><button class="key" data-value="o">o</button><button class="key" data-value="p">p</button>
+</div>
+
+<!-- ROW 4 -->
+<div class="row">
+<button class="key" data-value="a">a</button><button class="key" data-value="s">s</button><button class="key" data-value="ĕ">ĕ</button><button class="key" data-value="d">d</button><button class="key" data-value="f">f</button><button class="key" data-value="g">g</button><button class="key" data-value="h">h</button><button class="key" data-value="j">j</button><button class="key" data-value="k">k</button><button class="key" data-value="l">l</button>
+</div>
+
+<!-- ROW 5 -->
+<div class="row">
+<button class="key" data-value="̣">̣</button>
+<button class="key" data-value="z">z</button><button class="key" data-value="x">x</button><button class="key" data-value="c">c</button><button class="key" data-value="v">v</button><button class="key" data-value="b">b</button><button class="key" data-value="n">n</button><button class="key" data-value="m">m</button><button class="key" data-value="l᷊">l᷊</button><button class="key" data-value=",">,</button>
+</div>
+
+<!-- ROW 6 -->
+<div class="row">
+<button class="key" data-action="shift">Shift</button>
+<button class="key" data-action="caps">Caps</button>
+<button class="key" data-action="space">Space</button>
+<button class="key" data-value=".">.</button>
+<button class="key" data-action="enter">Enter</button>
+<button class="key"></button><button class="key"></button><button class="key"></button><button class="key"></button><button class="key"></button>
+</div>
+
+</div>
+
+<div class="footer">© 2026 Takashi NAKAGAWA</div>
+
+<script>
+
+let text = "";
+let caret = 0;
+
+let shift = false;
+let caps = false;
+
+const editor = document.getElementById("editor");
+
+function isLetter(ch){
+    return /^[a-zĕl᷊]$/i.test(ch);
+}
+
+/* ===== 文字変換（入力用） ===== */
+function transform(ch){
+    if(!isLetter(ch)) return ch;
+    const upper = shift ^ caps;
+    return upper ? ch.toUpperCase() : ch.toLowerCase();
+}
+
+/* ===== キー表示更新（安定方式） ===== */
+function updateKeyUI(){
+
+    document.querySelectorAll(".key").forEach(k=>{
+
+        const val = k.dataset.value;
+        const action = k.dataset.action;
+
+        if(action === "shift"){
+            k.classList.toggle("active", shift);
+            return;
+        }
+
+        if(action === "caps"){
+            k.classList.toggle("active", caps);
+            return;
+        }
+
+        if(!val) return;
+
+        if(isLetter(val)){
+            const upper = shift ^ caps;
+            k.classList.toggle("upper", upper);
+        } else {
+            k.classList.remove("upper");
+        }
+    });
+}
+
+/* ===== エディタ描画 ===== */
+function render(){
+
+    editor.innerHTML = "";
+
+    editor.appendChild(document.createTextNode(text.slice(0, caret)));
+
+    const caretEl = document.createElement("span");
+    caretEl.id = "caret";
+    editor.appendChild(caretEl);
+
+    editor.appendChild(document.createTextNode(text.slice(caret)));
+
+    updateKeyUI();
+}
+
+/* ===== 文字挿入 ===== */
+function insert(raw){
+
+    const ch = transform(raw);
+
+    text = text.slice(0, caret) + ch + text.slice(caret);
+    caret++;
+
+    if(shift){
+        shift = false;
+    }
+
+    render();
+}
+
+/* ===== イベント ===== */
+document.querySelectorAll(".key").forEach(k=>{
+
+    k.addEventListener("click", ()=>{
+
+        const val = k.dataset.value;
+        const action = k.dataset.action;
+
+        if(action === "shift"){
+            shift = !shift;
+            render();
+        }
+
+        else if(action === "caps"){
+            caps = !caps;
+            render();
+        }
+
+        else if(action === "back"){
+            text = text.slice(0,-1);
+            caret = Math.max(0, caret-1);
+            render();
+        }
+
+        else if(action === "space"){
+            insert(" ");
+        }
+
+        else if(action === "enter"){
+            insert("\n");
+        }
+
+        else if(val){
+            insert(val);
+        }
+    });
+});
+
+render();
+
+</script>
+
+</body>
+</html>
