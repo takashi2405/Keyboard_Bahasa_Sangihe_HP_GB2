@@ -21,13 +21,13 @@ body {
   display: flex !important;
   flex-direction: row !important;   /* 左側の文字ブロックと右側のボタンを横並びに */
   justify-content: space-between !important; /* 左端と右端に綺麗に振り分ける */
-  align-items: stretch !important;  /* 💡 ボタンを左側の2行分の高さに合わせて縦に広げる設定 */
+  align-items: stretch !important;  /* ボタンを左側の2行分の高さに合わせて縦に広げる設定 */
   gap: 8px !important;              /* タイトル側とボタンの間の最低限の隙間 */
   padding: 8px !important;
   width: 100% !important;
 }
 
-/* 💡 タイトルとコピーライトを綺麗に縦並びにするための左側用ブロック */
+/* タイトルとコピーライトを綺麗に縦並びにするための左側用ブロック */
 .title-block {
   display: flex !important;
   flex-direction: column !important;
@@ -46,11 +46,11 @@ h2 {
   color: #ffffff !important;         /* タイトル色：白 */
 }
 
-/* 💡 新しい配置に合わせたコピーライトのスタイル */
+/* 新しい配置に合わせたコピーライトのスタイル */
 .footer-text {
   font-size: 10px !important;
   color: #ffffff !important;         /* 文字色：白 */
-  text-align: left !important;       /* 💡 指示通り、左寄せに設定 */
+  text-align: left !important;       /* 左寄せ */
   margin-top: 2px !important;        /* タイトルとの間のほんの少しの隙間 */
   white-space: nowrap !important;
   overflow: hidden !important;
@@ -65,7 +65,7 @@ h2 {
   font-size: 11px !important;        /* スマホでの1行維持のため、ボタンの文字をほんの少し小さく調整 */
   flex-shrink: 0 !important;         /* ボタンの形が画面幅に潰されないように固定 */
   width: fit-content !important;
-  /* 💡 縦に広がったボタン内のテキストを、上下左右の中央に綺麗に配置する設定 */
+  /* 縦に広がったボタン内のテキストを、上下左右の中央に綺麗に配置する設定 */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -179,7 +179,7 @@ h2 {
 <div class="header">
   <div class="title-block">
     <h2>Keyboard Bahasa Sangihe</h2>
-    <div class="footer-text">© 2026 Takashi NAKAGAWA [1308]</div>
+    <div class="footer-text">© 2026 Takashi NAKAGAWA [1311]</div>
   </div>
   <button id="clearAllTop">Hapus Semua</button>
 </div>
@@ -307,8 +307,13 @@ function render(){
   });
 
   document.getElementById("space").textContent = shift ? "Tab" : "Space";
-  document.getElementById("shift").classList.toggle("active", shift);
-  document.getElementById("caps").classList.toggle("active", caps);
+  
+  // 💡 安全な要素存在チェックを追加し、エラーによるフリーズを防ぎました
+  const shiftBtn = document.getElementById("shift");
+  if (shiftBtn) shiftBtn.classList.toggle("active", shift);
+  
+  const capsBtn = document.getElementById("caps");
+  if (capsBtn) capsBtn.classList.toggle("active", caps);
 }
 
 /* INPUT */
@@ -412,18 +417,58 @@ document.querySelectorAll(".letter").forEach(k=>{
   k.onclick = () => insert(isUpper() ? k.dataset.upp : k.dataset.low);
 });
 
-document.getElementById("shift").onclick = () => {
-  shift = !shift;
-  render();
-};
+// 各ボタンのクリックイベント（安全な要素チェックを含む）
+const sBtn = document.getElementById("shift");
+if (sBtn) {
+  sBtn.onclick = () => {
+    shift = !shift;
+    render();
+  };
+}
 
-document.getElementById("caps").onclick = () => {
-  caps = !caps;
-  render();
-};
+const cBtn = document.getElementById("caps");
+if (cBtn) {
+  cBtn.onclick = () => {
+    caps = !caps;
+    render();
+  };
+}
 
 document.getElementById("space").onclick = () => insert(shift ? "\t" : " ");
 document.getElementById("enter").onclick = () => insert("\n");
 
 document.getElementById("backBtn").onclick = backspace;
-document.getElementById("
+document.getElementById("del").onclick = delForward;
+
+document.getElementById("left").onclick = () => move("left");
+document.getElementById("right").onclick = () => move("right");
+document.getElementById("up").onclick = () => move("up");
+document.getElementById("down").onclick = () => move("down");
+
+document.getElementById("copyAll").onclick = () => navigator.clipboard.writeText(buf);
+document.getElementById("clearAllTop").onclick = () => {
+  buf = ""; cur = 0; render();
+};
+
+/* 📋 貼り付け（Paste）イベントの処理 */
+document.addEventListener("paste", (e) => {
+  e.preventDefault();
+  const pastedText = (e.clipboardData || window.clipboardData).getData("text");
+
+  if (pastedText) {
+    const chars = getGraphemes(buf);
+    const pastedChars = getGraphemes(pastedText);
+    
+    chars.splice(cur, 0, ...pastedChars);
+    buf = chars.join("");
+    
+    cur += pastedChars.length;
+    render();
+  }
+});
+
+render();
+</script>
+
+</body>
+</html>
