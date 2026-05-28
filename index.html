@@ -18,82 +18,40 @@ body {
 }
 
 .header {
-  display: flex !important;
-  flex-direction: row !important;   /* 左側の文字ブロックと右側のボタンを横並びに */
-  justify-content: space-between !important; /* 左端と右端に綺麗に振り分ける */
-  align-items: stretch !important;  /* ボタンを左側の2行分の高さに合わせて縦に広げる設定 */
-  gap: 8px !important;              /* タイトル側とボタンの間の最低限の隙間 */
-  padding: 8px !important;
-  width: 100% !important;
-}
-
-/* タイトルとコピーライトを綺麗に縦並びにするための左側用ブロック */
-.title-block {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  flex: 1 !important;
-  overflow: hidden !important;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 h2 {
-  margin: 0 !important;
-  /* 画面幅（vw）に連動させ、狭いスマホでも1行に収まるよう文字サイズを自動で最適化します */
-  font-size: min(18px, 4.5vw) !important;
-  text-align: left !important;       /* タイトルテキストは左寄せ */
-  white-space: nowrap !important;    /* 絶対に途中で自動改行（2行に分割）させない */
-  overflow: hidden !important;       /* 万が一の表示崩れ防止 */
-  color: #ffffff !important;         /* タイトル色：白 */
-}
-
-/* 新しい配置に合わせたコピーライトのスタイル */
-.footer-text {
-  font-size: 10px !important;
-  color: #ffffff !important;         /* 文字色：白 */
-  text-align: left !important;       /* 左寄せ */
-  margin-top: 2px !important;        /* タイトルとの間のほんの少しの隙間 */
-  white-space: nowrap !important;
-  overflow: hidden !important;
+  margin: 0;
+  font-size: 18px;
+  color: #ffffff; /* タイトル色：白 */
 }
 
 #clearAllTop {
-  position: static !important;       /* 絶対配置は使わず、Flexboxの右端に綺麗に配置 */
-  padding: 6px 10px !important;
-  border: 1px solid #777777 !important;
-  border-radius: 6px !important;
-  background: #f8f9fa !important;
-  font-size: 11px !important;        /* スマホでの1行維持のため、ボタンの文字をほんの少し小さく調整 */
-  flex-shrink: 0 !important;         /* ボタンの形が画面幅に潰されないように固定 */
-  width: fit-content !important;
-  /* 縦に広がったボタン内のテキストを、上下左右の中央に綺麗に配置する設定 */
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-/* 💻 画面の横幅が 480px 以上のとき（PCやタブレット）の設定 */
-@media (min-width: 480px) {
-  h2 {
-    font-size: 18px !important;      /* PCなどの十分な広さがある画面では18pxに固定 */
-  }
-  #clearAllTop {
-    font-size: 12px !important;      /* PCでは元のサイズに */
-  }
+  padding: 6px 12px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  background: #f8f9fa;
+  font-size: 12px;
+  cursor: pointer;
 }
 
 #editor{
   flex:1;
   margin:6px;
   padding:10px;
-  border: 1px solid #ffffff !important;
+  border:2px solid #ccc;
   border-radius:10px;
   font-size:20px;
   white-space:pre-wrap;
   overflow:auto;
   word-break:break-word;
-  outline: none;                     /* タップ時の余計な枠線を消す */
-  background-color: #ffffff;         /* テキストボックス：白 */
-  color: #000000;                    /* 文字色：黒 */
+  outline: none;
+  background-color: #ffffff; /* テキストボックス：白 */
+  color: #000000; /* 文字色：黒 */
 }
 
 /* caret */
@@ -101,7 +59,7 @@ h2 {
   display:inline-block;
   width:1px;
   height:1.2em;
-  background:#000;                   /* カーソル色：黒 */
+  background:#000; /* カーソル色：黒 */
   animation:blink 1.2s steps(1) infinite;
   vertical-align:bottom;
 }
@@ -124,33 +82,19 @@ h2 {
   gap:4px;
 }
 
-/* 💡 すべてのボタン（通常キー・機能キー共通）の基本形 */
-.btn-base {
+.key{
   height:42px;
-  border: 1px solid transparent;
+  border:2px solid #ccc;
   border-radius:8px;
-  background:#f8f9fa;                
+  background:#f8f9fa;
   font-weight:600;
   font-size:14px;
   user-select:none;
 }
 
-/* 💡 Shiftが有効なときに青く光るスタイル */
-.btn-base.active{
+.key.active{
   background:#4dabf7;
   color:#fff;
-}
-
-/* キーやボタンを押した瞬間の沈み込みエフェクト */
-.btn-base:active, #clearAllTop:active {
-  transform: scale(0.95);       
-  background: #e0e0e0;          
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); 
-}
-
-.btn-base.active:active {
-  transform: none;
-  box-shadow: none;
 }
 
 /* ROW1 */
@@ -172,16 +116,21 @@ h2 {
   grid-template-columns:1fr 1fr 3fr 1fr 2fr;
   gap:4px;
 }
+
+/* コピーライト（画面最下部固定） */
+.footer-text {
+  font-size: 10px;
+  color: #ffffff; /* 文字色：白 */
+  text-align: center;
+  padding: 4px 0;
+}
 </style>
 </head>
 
 <body>
 
 <div class="header">
-  <div class="title-block">
-    <h2>Keyboard Bahasa Sangihe</h2>
-    <div class="footer-text">© 2026 Takashi NAKAGAWA [1323]</div>
-  </div>
+  <h2>Keyboard Bahasa Sangihe</h2>
   <button id="clearAllTop">Hapus Semua</button>
 </div>
 
@@ -190,55 +139,72 @@ h2 {
 <div class="keyboard">
 
 <div class="row row1">
-<button class="btn-base salins" id="copyAll">Salin Semua</button>
-<button class="btn-base arrow" id="left">←</button>
-<button class="btn-base arrow" id="up">↑</button>
-<button class="btn-base arrow" id="down">↓</button>
-<button class="btn-base arrow" id="right">→</button>
-<button class="btn-base del" id="del">Del</button>
+<button class="key salins" id="copyAll">Salin Semua</button>
+<button class="key arrow" id="left">←</button>
+<button class="key arrow" id="up">↑</button>
+<button class="key arrow" id="down">↓</button>
+<button class="key arrow" id="right">→</button>
+<button class="key del" id="del">Del</button>
 </div>
 
 <div class="row">
-<button class="btn-base letter" data-low="́" data-upp="~">́</button>
-<button class="btn-base letter" data-low="-" data-upp="_">-</button>
-<button class="btn-base letter" data-low="=" data-upp="+">=</button>
-<button class="btn-base letter" data-low="[" data-upp="{">[</button>
-<button class="btn-base letter" data-low="]" data-upp="}">]</button>
-<button class="btn-base letter" data-low="&#x005C;" data-upp="|">&#x005C;</button>
-<button class="btn-base letter" data-low=";" data-upp=":">;</button>
-<button class="btn-base letter" data-low="'" data-upp='"'>'</button>
-<button class="btn-base letter" data-low="/" data-upp="?">/</button>
-<button class="btn-base" id="backBtn">⌫</button>
+<button class="key letter" data-low="́" data-upp="~">́</button>
+<button class="key letter" data-low="-" data-upp="_">-</button>
+<button class="key letter" data-low="=" data-upp="+">=</button>
+<button class="key letter" data-low="[" data-upp="{">[</button>
+<button class="key letter" data-low="]" data-upp="}">]</button>
+<button class="key letter" data-low="&#x005C;" data-upp="|">&#x005C;</button>
+<button class="key letter" data-low=";" data-upp=":">;</button>
+<button class="key letter" data-low="'" data-upp='"'>'</button>
+<button class="key letter" data-low="/" data-upp="?">/</button>
+<button class="key" id="backBtn">⌫</button>
 </div>
 
 <div class="row">
-<button class="btn-base letter" data-low="1" data-upp="!">1</button>
-<button class="btn-base letter" data-low="2" data-upp="@">2</button>
-<button class="btn-base letter" data-low="3" data-upp="#">3</button>
-<button class="btn-base letter" data-low="4" data-upp="$">4</button>
-<button class="btn-base letter" data-low="5" data-upp="%">5</button>
-<button class="btn-base letter" data-low="6" data-upp="^">6</button>
-<button class="btn-base letter" data-low="7" data-upp="&">7</button>
-<button class="btn-base letter" data-low="8" data-upp="*">8</button>
-<button class="btn-base letter" data-low="9" data-upp="(">9</button>
-<button class="btn-base letter" data-low="0" data-upp=")">0</button>
+<button class="key letter" data-low="1" data-upp="!">1</button>
+<button class="key letter" data-low="2" data-upp="@">2</button>
+<button class="key letter" data-low="3" data-upp="#">3</button>
+<button class="key letter" data-low="4" data-upp="$">4</button>
+<button class="key letter" data-low="5" data-upp="%">5</button>
+<button class="key letter" data-low="6" data-upp="^">6</button>
+<button class="key letter" data-low="7" data-upp="&">7</button>
+<button class="key letter" data-low="8" data-upp="*">8</button>
+<button class="key letter" data-low="9" data-upp="(">9</button>
+<button class="key letter" data-low="0" data-upp=")">0</button>
 </div>
 
 <div class="row">
-<button class="btn-base letter" data-low="q" data-upp="Q">q</button>
-<button class="btn-base letter" data-low="w" data-upp="W">w</button>
-<button class="btn-base letter" data-low="e" data-upp="E">e</button>
-<button class="btn-base letter" data-low="r" data-upp="R">r</button>
-<button class="btn-base letter" data-low="t" data-upp="T">t</button>
-<button class="btn-base letter" data-low="y" data-upp="Y">y</button>
-<button class="btn-base letter" data-low="u" data-upp="U">u</button>
-<button class="btn-base letter" data-low="i" data-upp="I">i</button>
-<button class="btn-base letter" data-low="o" data-upp="O">o</button>
-<button class="btn-base letter" data-low="p" data-upp="P">p</button>
+<button class="key letter" data-low="q" data-upp="Q">q</button>
+<button class="key letter" data-low="w" data-upp="W">w</button>
+<button class="key letter" data-low="e" data-upp="E">e</button>
+<button class="key letter" data-low="r" data-upp="R">r</button>
+<button class="key letter" data-low="t" data-upp="T">t</button>
+<button class="key letter" data-low="y" data-upp="Y">y</button>
+<button class="key letter" data-low="u" data-upp="U">u</button>
+<button class="key letter" data-low="i" data-upp="I">i</button>
+<button class="key letter" data-low="o" data-upp="O">o</button>
+<button class="key letter" data-low="p" data-upp="P">p</button>
 </div>
 
 <div class="row">
-<button class="btn-base letter" data-low="a" data-upp="A">a</button>
-<button class="btn-base letter" data-low="s" data-upp="S">s</button>
-<button class="btn-base letter" data-low="ĕ" data-upp="Ĕ">ĕ</button>
-<button class="btn-base letter" data-low="d" data-upp="
+<button class="key letter" data-low="a" data-upp="A">a</button>
+<button class="key letter" data-low="s" data-upp="S">s</button>
+<button class="key letter" data-low="ĕ" data-upp="Ĕ">ĕ</button>
+<button class="key letter" data-low="d" data-upp="D">d</button>
+<button class="key letter" data-low="f" data-upp="F">f</button>
+<button class="key letter" data-low="g" data-upp="G">g</button>
+<button class="key letter" data-low="h" data-upp="H">h</button>
+<button class="key letter" data-low="j" data-upp="J">j</button>
+<button class="key letter" data-low="k" data-upp="K">k</button>
+<button class="key letter" data-low="l" data-upp="L">l</button>
+</div>
+
+<div class="row">
+<button class="key letter" data-low="&#x0323;" data-upp="&#x0323;">&#x25CC;&#x0323;</button>
+<button class="key letter" data-low="z" data-upp="Z">z</button>
+<button class="key letter" data-low="x" data-upp="X">x</button>
+<button class="key letter" data-low="c" data-upp="C">c</button>
+<button class="key letter" data-low="v" data-upp="V">v</button>
+<button class="key letter" data-low="b" data-upp="B">b</button>
+<button class="key letter" data-low="n" data-upp="N">n</button>
+<button class="key letter" data-low="m" data-upp
