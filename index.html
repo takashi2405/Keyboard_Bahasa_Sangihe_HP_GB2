@@ -14,28 +14,46 @@ body {
   display: flex;
   flex-direction: column;
   font-family: "Noto Sans", Arial, sans-serif;
-  background-color: #777777; /* 💡 背景色をグレーに変更 */
+  background-color: #777777; /* 背景色：グレー */
 }
 
 .header {
   display: flex !important;
-  flex-direction: row !important;   /* スマホでもPCでも、絶対に横並び（1行） */
+  flex-direction: row !important;   /* 左側の文字ブロックと右側のボタンを横並びに */
   justify-content: space-between !important; /* 左端と右端に綺麗に振り分ける */
-  align-items: center !important;
-  gap: 8px !important;              /* タイトルとボタンの間の最低限の隙間 */
+  align-items: stretch !important;  /* 💡 ボタンを左側の2行分の高さに合わせて縦に広げる設定 */
+  gap: 8px !important;              /* タイトル側とボタンの間の最低限の隙間 */
   padding: 8px !important;
   width: 100% !important;
 }
 
+/* 💡 タイトルとコピーライトを綺麗に縦並びにするための左側用ブロック */
+.title-block {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  flex: 1 !important;
+  overflow: hidden !important;
+}
+
 h2 {
   margin: 0 !important;
-  /* 💡 画面幅（vw）に連動させ、狭いスマホでも1行に収まるよう文字サイズを自動で最適化します */
+  /* 画面幅（vw）に連動させ、狭いスマホでも1行に収まるよう文字サイズを自動で最適化します */
   font-size: min(18px, 4.5vw) !important;
   text-align: left !important;       /* タイトルテキストは左寄せ */
   white-space: nowrap !important;    /* 絶対に途中で自動改行（2行に分割）させない */
-  flex: 1 !important;                /* 利用可能なスペースを柔軟に使う */
   overflow: hidden !important;       /* 万が一の表示崩れ防止 */
-  color: #ffffff !important;         /* 💡 指示通り、タイトルを白に変更 */
+  color: #ffffff !important;         /* タイトル色：白 */
+}
+
+/* 💡 新しい配置に合わせたコピーライトのスタイル */
+.footer-text {
+  font-size: 10px !important;
+  color: #ffffff !important;         /* 文字色：白 */
+  text-align: left !important;       /* 💡 指示通り、左寄せに設定 */
+  margin-top: 2px !important;        /* タイトルとの間のほんの少しの隙間 */
+  white-space: nowrap !important;
+  overflow: hidden !important;
 }
 
 #clearAllTop {
@@ -44,9 +62,13 @@ h2 {
   border: 0px solid #ccc !important;
   border-radius: 6px !important;
   background: #f8f9fa !important;
-  font-size: 11px !important;        /* スマホでの1行維持のため、ボタンの文字をほんの少し小さく（12px→11px）調整 */
+  font-size: 11px !important;        /* スマホでの1行維持のため、ボタンの文字をほんの少し小さく調整 */
   flex-shrink: 0 !important;         /* ボタンの形が画面幅に潰されないように固定 */
   width: fit-content !important;
+  /* 💡 縦に広がったボタン内のテキストを、上下左右の中央に綺麗に配置する設定 */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 /* 💻 画面の横幅が 480px 以上のとき（PCやタブレット）の設定 */
@@ -70,8 +92,8 @@ h2 {
   overflow:auto;
   word-break:break-word;
   outline: none;                     /* タップ時の余計な枠線を消す */
-  background-color: #ffffff;         /* 💡 元の通り、テキストボックスは白のまま維持 */
-  color: #000000;                    /* 💡 文字色も元の黒のまま維持 */
+  background-color: #ffffff;         /* テキストボックス：白 */
+  color: #000000;                    /* 文字色：黒 */
 }
 
 /* caret */
@@ -79,7 +101,7 @@ h2 {
   display:inline-block;
   width:1px;
   height:1.2em;
-  background:#000;                   /* 💡 元の通り、カーソルは黒のまま維持 */
+  background:#000;                   /* カーソル色：黒 */
   animation:blink 1.2s steps(1) infinite;
   vertical-align:bottom;
 }
@@ -106,7 +128,7 @@ h2 {
   height:42px;
   border:0px solid #ccc;
   border-radius:8px;
-  background:#f8f9fa;                /* 💡 元の通り、キーの色を変更前に戻しました */
+  background:#f8f9fa;                
   font-weight:600;
   font-size:14px;
   user-select:none;
@@ -117,7 +139,7 @@ h2 {
   color:#fff;
 }
 
-/* 💡 キーやボタンを押した瞬間の沈み込みエフェクト（変更前の設定を維持） */
+/* キーやボタンを押した瞬間の沈み込みエフェクト */
 .key:active, #clearAllTop:active {
   transform: scale(0.95);       
   background: #e0e0e0;          
@@ -149,21 +171,17 @@ h2 {
   grid-template-columns:1fr 1fr 3fr 1fr 2fr;
   gap:4px;
 }
-
-.footer{
-  text-align:center;
-  font-size:10px;
-  color:#ffffff;                     /* 💡 指示通り、コピーライトの部分を白に変更 */
-  padding:4px;
-}
 </style>
 </head>
 
 <body>
 
 <div class="header">
-<h2>Keyboard Bahasa Sangihe</h2>
-<button id="clearAllTop">Hapus Semua</button>
+  <div class="title-block">
+    <h2>Keyboard Bahasa Sangihe</h2>
+    <div class="footer-text">© 2026 Takashi NAKAGAWA [1308]</div>
+  </div>
+  <button id="clearAllTop">Hapus Semua</button>
 </div>
 
 <div id="editor" contenteditable="true" inputmode="none"></div>
@@ -253,8 +271,6 @@ h2 {
 </div>
 
 </div>
-
-<div class="footer">© 2026 Takashi NAKAGAWA [1259]</div>
 
 <script>
 let buf = "";
@@ -410,37 +426,4 @@ document.getElementById("space").onclick = () => insert(shift ? "\t" : " ");
 document.getElementById("enter").onclick = () => insert("\n");
 
 document.getElementById("backBtn").onclick = backspace;
-document.getElementById("del").onclick = delForward;
-
-document.getElementById("left").onclick = () => move("left");
-document.getElementById("right").onclick = () => move("right");
-document.getElementById("up").onclick = () => move("up");
-document.getElementById("down").onclick = () => move("down");
-
-document.getElementById("copyAll").onclick = () => navigator.clipboard.writeText(buf);
-document.getElementById("clearAllTop").onclick = () => {
-  buf = ""; cur = 0; render();
-};
-
-/* 📋 貼り付け（Paste）イベントの処理 */
-document.addEventListener("paste", (e) => {
-  e.preventDefault();
-  const pastedText = (e.clipboardData || window.clipboardData).getData("text");
-
-  if (pastedText) {
-    const chars = getGraphemes(buf);
-    const pastedChars = getGraphemes(pastedText);
-    
-    chars.splice(cur, 0, ...pastedChars);
-    buf = chars.join("");
-    
-    cur += pastedChars.length;
-    render();
-  }
-});
-
-render();
-</script>
-
-</body>
-</html>
+document.getElementById("
