@@ -49,12 +49,13 @@ h2 {
 
 #clearAllTop {
   position: static !important;       /* 絶対配置は使わず、Flexboxの右端に綺麗に配置 */
-  /* 💡 変更：上下のパディングを 6px から 12px に増やして高さを出しました */
-  padding: 12px 10px !important;
+  padding: 12px 12px !important;
   border: 0px solid #ccc !important;
   border-radius: 6px !important;
   background: #f8f9fa !important;
-  font-size: 11px !important;        /* スマホでの1行維持のため、ボタンの文字をほんの少し小さく（12px→11px）調整 */
+  font-size: 14px !important;        
+  /* 💡 修正：Salin Semuaと同じ太文字（font-weight: 600）を直接指定しました */
+  font-weight: 600 !important;
   flex-shrink: 0 !important;         /* ボタンの形が画面幅に潰されないように固定 */
   width: fit-content !important;
 }
@@ -63,9 +64,6 @@ h2 {
 @media (min-width: 480px) {
   h2 {
     font-size: 18px !important;      /* PCなどの十分な広さがある画面では18pxに固定 */
-  }
-  #clearAllTop {
-    font-size: 12px !important;      /* PCでは元のサイズに */
   }
 }
 
@@ -174,7 +172,7 @@ h2 {
 <div class="header">
   <div style="display: flex; flex-direction: column; flex: 1;">
     <h2>Keyboard Bahasa Sangihe</h2>
-    <div class="header-copyright">© 2026 Takashi NAKAGAWA</div>
+    <div class="header-copyright">© 2026 Takashi NAKAGAWA [versi 1408]</div>
   </div>
   <button id="clearAllTop">Hapus Semua</button>
 </div>
@@ -297,163 +295,4 @@ function render(){
   caret.id = "caret";
   ed.appendChild(caret);
 
-  ed.append(chars.slice(cur).join(""));
-
-  document.querySelectorAll(".letter").forEach(k=>{
-    k.textContent = isUpper() ? k.dataset.upp : k.dataset.low;
-  });
-
-  document.getElementById("space").textContent = shift ? "Tab" : "Space";
-  document.getElementById("shift").classList.toggle("active", shift);
-  document.getElementById("caps").classList.toggle("active", caps);
-}
-
-/* INPUT */
-function insert(v){
-  const chars = getGraphemes(buf);
-  chars.splice(cur, 0, v);
-  buf = chars.join("");
-  
-  cur++; 
-  if(shift) shift = false;
-  render();
-}
-
-function backspace(){
-  if(cur <= 0) return;
-  const chars = getGraphemes(buf);
-  chars.splice(cur - 1, 1);
-  buf = chars.join("");
-  cur--;
-  render();
-}
-
-function delForward(){
-  const chars = getGraphemes(buf);
-  if(cur >= chars.length) return;
-  chars.splice(cur, 1);
-  buf = chars.join("");
-  render();
-}
-
-/* CURSOR */
-function move(dir){
-  const chars = getGraphemes(buf);
-  
-  if(dir === "left") {
-    cur = Math.max(0, cur - 1);
-    render();
-    return;
-  }
-  if(dir === "right") {
-    cur = Math.min(chars.length, cur + 1);
-    render();
-    return;
-  }
-
-  // 安全な行分割ロジック
-  const lines = []; 
-  const lineStartIndices = []; 
-  
-  let currentLine = [];
-  lineStartIndices.push(0);
-  
-  for(let i = 0; i < chars.length; i++) {
-    currentLine.push(chars[i]);
-    if(chars[i] === "\n") {
-      lines.push(currentLine);
-      currentLine = [];
-      lineStartIndices.push(i + 1);
-    }
-  }
-  lines.push(currentLine); 
-
-  let currentLineIdx = 0;
-  let col = 0;
-  
-  for(let i = 0; i < lineStartIndices.length; i++) {
-    if(cur >= lineStartIndices[i]) {
-      currentLineIdx = i;
-      col = cur - lineStartIndices[i];
-    }
-  }
-
-  // UP / DOWN の位置計算（エッジケース対応版）
-  if(dir === "up"){
-    if(currentLineIdx === 0) return; 
-    let targetLineIdx = currentLineIdx - 1;
-    let maxCol = lines[targetLineIdx].length;
-    // 行末の改行文字そのものの手前にカーソルを制限する
-    if(maxCol > 0 && lines[targetLineIdx][maxCol - 1] === "\n") maxCol--; 
-    
-    let targetCol = Math.min(col, maxCol);
-    cur = lineStartIndices[targetLineIdx] + targetCol;
-  }
-
-  if(dir === "down"){
-    if(currentLineIdx === lines.length - 1) return; 
-    let targetLineIdx = currentLineIdx + 1;
-    let maxCol = lines[targetLineIdx].length;
-    // 最終行でなくても、行末の改行文字そのものの手前に制限する
-    if(maxCol > 0 && lines[targetLineIdx][maxCol - 1] === "\n") maxCol--;
-
-    let targetCol = Math.min(col, maxCol);
-    cur = lineStartIndices[targetLineIdx] + targetCol;
-  }
-
-  render();
-}
-
-/* EVENTS */
-document.querySelectorAll(".letter").forEach(k=>{
-  k.onclick = () => insert(isUpper() ? k.dataset.upp : k.dataset.low);
-});
-
-document.getElementById("shift").onclick = () => {
-  shift = !shift;
-  render();
-};
-
-document.getElementById("caps").onclick = () => {
-  caps = !caps;
-  render();
-};
-
-document.getElementById("space").onclick = () => insert(shift ? "\t" : " ");
-document.getElementById("enter").onclick = () => insert("\n");
-
-document.getElementById("backBtn").onclick = backspace;
-document.getElementById("del").onclick = delForward;
-
-document.getElementById("left").onclick = () => move("left");
-document.getElementById("right").onclick = () => move("right");
-document.getElementById("up").onclick = () => move("up");
-document.getElementById("down").onclick = () => move("down");
-
-document.getElementById("copyAll").onclick = () => navigator.clipboard.writeText(buf);
-document.getElementById("clearAllTop").onclick = () => {
-  buf = ""; cur = 0; render();
-};
-
-/* 📋 貼り付け（Paste）イベントの処理 */
-document.addEventListener("paste", (e) => {
-  e.preventDefault();
-  const pastedText = (e.clipboardData || window.clipboardData).getData("text");
-
-  if (pastedText) {
-    const chars = getGraphemes(buf);
-    const pastedChars = getGraphemes(pastedText);
-    
-    chars.splice(cur, 0, ...pastedChars);
-    buf = chars.join("");
-    
-    cur += pastedChars.length;
-    render();
-  }
-});
-
-render();
-</script>
-
-</body>
-</html>
+  ed.append(chars.slice(
