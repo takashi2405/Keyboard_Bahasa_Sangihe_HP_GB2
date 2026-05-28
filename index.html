@@ -17,50 +17,60 @@ body {
   font-family: "Noto Sans", Arial, sans-serif;
 }
 
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+height:100dvh;
+display:flex;
+flex-direction:column;
+font-family: "Noto Sans", Arial, sans-serif; /* 前回設定したフォント */
+}
+
+/* 📱 ここからヘッダーの修正（スマホ最優先の設定） */
 .header {
-  display: flex;
-  flex-direction: column;     /* スマホでは縦並び */
-  align-items: stretch;       /* 横幅いっぱいに広げる */
-  justify-content: center;
-  gap: 8px;                   /* タイトルとボタンの隙間 */
-  padding: 8px 6px;           /* 💡 横の余白を少しだけ削って幅を確保 */
+  display: flex !important;
+  flex-direction: column !important; /* 💡 スマホでは強制的に縦並びにする */
+  align-items: stretch !important;
+  justify-content: center !important;
+  gap: 8px !important;               /* 上下の隙間 */
+  padding: 10px 8px !important;
+  position: relative;
 }
 
 h2 {
-  margin: 0;
-  /* 💡 画面幅（vw）に連動させて、極端に古い小さなスマホでも縮小して収まるようにします */
-  font-size: min(18px, 5vw); 
-  text-align: left;           /* タイトルテキストは常に左寄せ */
-  
-  /* 💡 【重要】これを入れることで、絶対に途中で改行（2行に固定）されなくなります */
-  white-space: nowrap;        
+  margin: 0 !important;
+  font-size: 18px !important;
+  text-align: left !important;       /* 💡 タイトルは絶対に左寄せ */
+  white-space: nowrap !important;    /* 💡 絶対に自動改行させない */
+  width: 100% !important;
 }
 
 #clearAllTop {
-  position: static;           /* 絶対配置を解除 */
+  position: static !important;       /* 絶対配置を完全に解除 */
   padding: 6px 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
   background: #f8f9fa;
   font-size: 12px;
-  align-self: flex-end;       /* スマホ時はボタンを右寄せに */
+  align-self: flex-end !important;   /* 💡 ボタンだけを右寄せにする */
+  width: fit-content !important;
 }
 
 /* 💻 画面の横幅が 480px 以上のとき（PCやタブレット）の設定 */
 @media (min-width: 480px) {
   .header {
-    flex-direction: row;         /* PCでは横並び */
-    justify-content: space-between; /* タイトル左端、ボタン右端 */
-    align-items: center;
-    padding: 8px;               /* PCでは元の余白に戻す */
+    flex-direction: row !important;         /* PCでは横並びに戻す */
+    justify-content: space-between !important; /* タイトル左端、ボタン右端 */
+    align-items: center !important;
   }
   
   h2 {
-    font-size: 18px;            /* PCでは18pxに固定 */
+    width: auto !important;
   }
   
   #clearAllTop {
-    align-self: auto;            
+    align-self: auto !important;            
   }
 }
 
@@ -243,7 +253,7 @@ padding:4px;
 
 </div>
 
-<div class="footer">© 2026 Takashi NAKAGAWA [1118]</div>
+<div class="footer">© 2026 Takashi NAKAGAWA [1122]</div>
 
 <script>
 let buf = "";
