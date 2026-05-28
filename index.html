@@ -14,6 +14,7 @@ body {
   display: flex;
   flex-direction: column;
   font-family: "Noto Sans", Arial, sans-serif;
+  background-color: #333333; /* 💡 指示通り、背景色をチャコールグレーに変更 */
 }
 
 .header {
@@ -34,6 +35,7 @@ h2 {
   white-space: nowrap !important;    /* 絶対に途中で自動改行（2行に分割）させない */
   flex: 1 !important;                /* 利用可能なスペースを柔軟に使う */
   overflow: hidden !important;       /* 万が一の表示崩れ防止 */
+  color: #ffffff !important;         /* 💡 指示通り、タイトルを白に変更 */
 }
 
 #clearAllTop {
@@ -67,7 +69,9 @@ h2 {
   white-space:pre-wrap;
   overflow:auto;
   word-break:break-word;
-  outline: none; /* 💡 これを追加して、タップ時の余計な枠線を消します */
+  outline: none;                     /* タップ時の余計な枠線を消す */
+  background-color: #ffffff;         /* 💡 元の通り、テキストボックスは白のまま維持 */
+  color: #000000;                    /* 💡 文字色も元の黒のまま維持 */
 }
 
 /* caret */
@@ -75,7 +79,7 @@ h2 {
   display:inline-block;
   width:1px;
   height:1.2em;
-  background:#000;
+  background:#000;                   /* 💡 元の通り、カーソルは黒のまま維持 */
   animation:blink 1.2s steps(1) infinite;
   vertical-align:bottom;
 }
@@ -102,7 +106,7 @@ h2 {
   height:42px;
   border:1px solid #ccc;
   border-radius:8px;
-  background:#f8f9fa;
+  background:#f8f9fa;                /* 💡 元の通り、キーの色を変更前に戻しました */
   font-weight:600;
   font-size:14px;
   user-select:none;
@@ -113,11 +117,11 @@ h2 {
   color:#fff;
 }
 
-/* 💡 キーやボタンを押した瞬間の沈み込みエフェクト */
+/* 💡 キーやボタンを押した瞬間の沈み込みエフェクト（変更前の設定を維持） */
 .key:active, #clearAllTop:active {
-  transform: scale(0.95);       /* 押し込んだ瞬間に少しだけ小さく */
-  background: #e0e0e0;          /* 押し込んだ瞬間に色を少し濃く */
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* 内側に影をつけて沈みを表現 */
+  transform: scale(0.95);       
+  background: #e0e0e0;          
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); 
   border-color: #bbb;
 }
 
@@ -149,7 +153,7 @@ h2 {
 .footer{
   text-align:center;
   font-size:10px;
-  color:#666;
+  color:#ffffff;                     /* 💡 指示通り、コピーライトの部分を白に変更 */
   padding:4px;
 }
 </style>
@@ -250,7 +254,7 @@ h2 {
 
 </div>
 
-<div class="footer">© 2026 Takashi NAKAGAWA [1242]</div>
+<div class="footer">© 2026 Takashi NAKAGAWA [1244]</div>
 
 <script>
 let buf = "";
