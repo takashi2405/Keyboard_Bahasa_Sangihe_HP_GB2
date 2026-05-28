@@ -78,6 +78,7 @@ font-size:20px;
 white-space:pre-wrap;
 overflow:auto;
 word-break:break-word;
+outline: none; /* 💡 これを追加して、タップ時の余計な枠線を消します */
 }
 
 /* caret */
@@ -159,7 +160,7 @@ padding:4px;
 <button id="clearAllTop">Hapus Semua</button>
 </div>
 
-<div id="editor"></div>
+<div id="editor" contenteditable="true" inputmode="none"></div>
 
 <div class="keyboard">
 
@@ -247,7 +248,7 @@ padding:4px;
 
 </div>
 
-<div class="footer">© 2026 Takashi NAKAGAWA [1148]</div>
+<div class="footer">© 2026 Takashi NAKAGAWA [1201]</div>
 
 <script>
 let buf = "";
