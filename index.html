@@ -13,24 +13,13 @@ body {
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  /* 💡 以下の行を書き換えます。フォント名にスペースが含まれる場合は半角引用符で囲みます */
   font-family: "Noto Sans", Arial, sans-serif;
-}
-
-*{box-sizing:border-box;}
-
-body{
-margin:0;
-height:100dvh;
-display:flex;
-flex-direction:column;
-font-family: "Noto Sans", Arial, sans-serif; /* 前回設定したフォント */
 }
 
 .header {
   display: flex !important;
-  flex-direction: row !important;   /* 💡 スマホでもPCでも、絶対に横並び（1行） */
-  justify-content: space-between !important; /* 💡 左端と右端に綺麗に振り分ける */
+  flex-direction: row !important;   /* スマホでもPCでも、絶対に横並び（1行） */
+  justify-content: space-between !important; /* 左端と右端に綺麗に振り分ける */
   align-items: center !important;
   gap: 8px !important;              /* タイトルとボタンの間の最低限の隙間 */
   padding: 8px !important;
@@ -42,8 +31,8 @@ h2 {
   /* 💡 画面幅（vw）に連動させ、狭いスマホでも1行に収まるよう文字サイズを自動で最適化します */
   font-size: min(18px, 4.5vw) !important;
   text-align: left !important;       /* タイトルテキストは左寄せ */
-  white-space: nowrap !important;    /* 💡 絶対に途中で自動改行（2行に分割）させない */
-  flex: 1 !important;                /* 💡 利用可能なスペースを柔軟に使う */
+  white-space: nowrap !important;    /* 絶対に途中で自動改行（2行に分割）させない */
+  flex: 1 !important;                /* 利用可能なスペースを柔軟に使う */
   overflow: hidden !important;       /* 万が一の表示崩れ防止 */
 }
 
@@ -53,8 +42,8 @@ h2 {
   border: 1px solid #ccc !important;
   border-radius: 6px !important;
   background: #f8f9fa !important;
-  font-size: 11px !important;        /* 💡 スマホでの1行維持のため、ボタンの文字をほんの少し小さく（12px→11px）調整 */
-  flex-shrink: 0 !important;         /* 💡 ボタンの形が画面幅に潰されないように固定 */
+  font-size: 11px !important;        /* スマホでの1行維持のため、ボタンの文字をほんの少し小さく（12px→11px）調整 */
+  flex-shrink: 0 !important;         /* ボタンの形が画面幅に潰されないように固定 */
   width: fit-content !important;
 }
 
@@ -69,62 +58,62 @@ h2 {
 }
 
 #editor{
-flex:1;
-margin:6px;
-padding:10px;
-border:2px solid #ccc;
-border-radius:10px;
-font-size:20px;
-white-space:pre-wrap;
-overflow:auto;
-word-break:break-word;
-outline: none; /* 💡 これを追加して、タップ時の余計な枠線を消します */
+  flex:1;
+  margin:6px;
+  padding:10px;
+  border:2px solid #ccc;
+  border-radius:10px;
+  font-size:20px;
+  white-space:pre-wrap;
+  overflow:auto;
+  word-break:break-word;
+  outline: none; /* 💡 これを追加して、タップ時の余計な枠線を消します */
 }
 
 /* caret */
 #caret{
-display:inline-block;
-width:1px;
-height:1.2em;
-background:#000;
-animation:blink 1.2s steps(1) infinite;
-vertical-align:bottom;
+  display:inline-block;
+  width:1px;
+  height:1.2em;
+  background:#000;
+  animation:blink 1.2s steps(1) infinite;
+  vertical-align:bottom;
 }
 
 @keyframes blink{
-50%{opacity:0}
+  50%{opacity:0}
 }
 
 /* keyboard */
 .keyboard{
-margin:6px;
-display:flex;
-flex-direction:column;
-gap:4px;
+  margin:6px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
 }
 
 .row{
-display:grid;
-grid-template-columns:repeat(10,1fr);
-gap:4px;
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:4px;
 }
 
 .key{
-height:42px;
-border:1px solid #ccc;
-border-radius:8px;
-background:#f8f9fa;
-font-weight:600;
-font-size:14px;
-user-select:none;
+  height:42px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  background:#f8f9fa;
+  font-weight:600;
+  font-size:14px;
+  user-select:none;
 }
 
 .key.active{
-background:#4dabf7;
-color:#fff;
+  background:#4dabf7;
+  color:#fff;
 }
 
-/* 💡 ここから下を追加します */
+/* 💡 キーやボタンを押した瞬間の沈み込みエフェクト */
 .key:active, #clearAllTop:active {
   transform: scale(0.95);       /* 押し込んだ瞬間に少しだけ小さく */
   background: #e0e0e0;          /* 押し込んだ瞬間に色を少し濃く */
@@ -139,31 +128,31 @@ color:#fff;
 
 /* ROW1 */
 .row1{
-display:grid;
-grid-template-columns:repeat(10,1fr);
-gap:4px;
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:4px;
 }
 
 .salins{
-grid-column:span 4;
+  grid-column:span 4;
 }
 
 .arrow{grid-column:span 1;}
 .del{grid-column:span 2;}
 
 .row7{
-display:grid;
-grid-template-columns:1fr 1fr 3fr 1fr 2fr;
-gap:4px;
+  display:grid;
+  grid-template-columns:1fr 1fr 3fr 1fr 2fr;
+  gap:4px;
 }
 
 .footer{
-text-align:center;
-font-size:10px;
-color:#666;
-padding:4px;
+  text-align:center;
+  font-size:10px;
+  color:#666;
+  padding:4px;
 }
-</>
+</style>
 </head>
 
 <body>
@@ -261,7 +250,7 @@ padding:4px;
 
 </div>
 
-<div class="footer">© 2026 Takashi NAKAGAWA [1218]</div>
+<div class="footer">© 2026 Takashi NAKAGAWA [1222]</div>
 
 <script>
 let buf = "";
@@ -430,27 +419,18 @@ document.getElementById("clearAllTop").onclick = () => {
 };
 
 /* 📋 貼り付け（Paste）イベントの処理 */
-// エディタ部分、またはページ全体での貼り付けを監視
 document.addEventListener("paste", (e) => {
-  // ブラウザ標準の貼り付け動作（そのまま文字が入ってしまう挙動）を一旦ストップ
   e.preventDefault();
-
-  // クリップボードからテキストデータを取得
   const pastedText = (e.clipboardData || window.clipboardData).getData("text");
 
   if (pastedText) {
-    // 取得したテキストを一文字ずつ（または塊で）現在のカーソル位置に挿入
-    // 複数文字の一括挿入に対応するため、insert関数をベースに処理
     const chars = getGraphemes(buf);
     const pastedChars = getGraphemes(pastedText);
     
     chars.splice(cur, 0, ...pastedChars);
     buf = chars.join("");
     
-    // カーソル位置を貼り付けた文字数分だけ進める
     cur += pastedChars.length;
-    
-    // 画面を再描画
     render();
   }
 });
