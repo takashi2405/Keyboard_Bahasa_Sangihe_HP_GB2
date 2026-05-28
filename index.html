@@ -49,7 +49,8 @@ h2 {
 
 #clearAllTop {
   position: static !important;       /* 絶対配置は使わず、Flexboxの右端に綺麗に配置 */
-  padding: 6px 10px !important;
+  /* 💡 変更：上下のパディングを 6px から 12px に増やして高さを出しました */
+  padding: 12px 10px !important;
   border: 0px solid #ccc !important;
   border-radius: 6px !important;
   background: #f8f9fa !important;
@@ -173,7 +174,7 @@ h2 {
 <div class="header">
   <div style="display: flex; flex-direction: column; flex: 1;">
     <h2>Keyboard Bahasa Sangihe</h2>
-    <div class="header-copyright">© 2026 Takashi NAKAGAWA [1350]</div>
+    <div class="header-copyright">© 2026 Takashi NAKAGAWA</div>
   </div>
   <button id="clearAllTop">Hapus Semua</button>
 </div>
