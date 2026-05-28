@@ -17,27 +17,44 @@ body {
   font-family: "Noto Sans", Arial, sans-serif;
 }
 
-.header{
-display:flex;
-align-items:center;
-justify-content:center;
-position:relative;
-padding:6px;
+.header {
+  display: flex;
+  flex-direction: column; /* 💡 スマホでは縦並びに（かぶらなくなります） */
+  align-items: flex-end;   /* 💡 全体を右寄せにします */
+  justify-content: center;
+  gap: 8px;                /* 💡 タイトルとボタンの間の隙間 */
+  padding: 8px;
 }
 
-h2{
-margin:0;
-font-size:18px;
+h2 {
+  margin: 0;
+  font-size: 18px;
+  text-align: right;       /* 💡 タイトルを右寄せ */
 }
 
-#clearAllTop{
-position:absolute;
-right:6px;
-padding:6px 10px;
-border:1px solid #ccc;
-border-radius:6px;
-background:#f8f9fa;
-font-size:12px;
+#clearAllTop {
+  /* position: absolute;  ❌ これがあると重なる原因になるので削除、または無効化します */
+  position: static;        /* 💡 配置ルールを通常に戻します */
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f8f9fa;
+  font-size: 12px;
+}
+
+/* 💻 画面の横幅が 480px 以上のとき（PCやタブレット）の設定 */
+@media (min-width: 480px) {
+  .header {
+    flex-direction: row;   /* 横並びに戻す */
+    align-items: center;
+    justify-content: flex-end; /* 右寄せ */
+    position: relative;
+  }
+  
+  #clearAllTop {
+    position: absolute;    /* 元の綺麗な配置に戻す */
+    right: 6px;
+  }
 }
 
 #editor{
@@ -219,7 +236,7 @@ padding:4px;
 
 </div>
 
-<div class="footer">© 2026 Takashi NAKAGAWA [1046]</div>
+<div class="footer">© 2026 Takashi NAKAGAWA [1055]</div>
 
 <script>
 let buf = "";
