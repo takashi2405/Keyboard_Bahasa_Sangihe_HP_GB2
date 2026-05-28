@@ -6,270 +6,387 @@
 <title>Keyboard Bahasa Sangihe</title>
 
 <style>
-
 *{box-sizing:border-box;}
 
 body{
-    margin:0;
-    height:100dvh;
-    display:flex;
-    flex-direction:column;
-    font-family:sans-serif;
+margin:0;
+height:100dvh;
+display:flex;
+flex-direction:column;
+font-family:sans-serif;
+}
+
+.header{
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+padding:6px;
 }
 
 h2{
-    margin:0;
-    padding:6px;
-    text-align:center;
-    font-size:18px;
+margin:0;
+font-size:18px;
 }
 
-/* ===== TEXT AREA ===== */
+#clearAllTop{
+position:absolute;
+right:6px;
+padding:6px 10px;
+border:1px solid #ccc;
+border-radius:6px;
+background:#f8f9fa;
+font-size:12px;
+}
+
 #editor{
-    flex:1;
-    margin:6px;
-    padding:10px;
-    border:2px solid #ccc;
-    border-radius:10px;
-    background:#fff;
-    font-size:20px;
-    white-space:pre-wrap;
-    word-break:break-word;
-    overflow:auto;
+flex:1;
+margin:6px;
+padding:10px;
+border:2px solid #ccc;
+border-radius:10px;
+font-size:20px;
+white-space:pre-wrap;
+overflow:auto;
+word-break:break-word;
 }
 
+/* caret */
 #caret{
-    display:inline-block;
-    width:2px;
-    height:1em;
-    background:black;
-    animation:blink 1s step-end infinite;
+display:inline-block;
+width:1px;
+height:1.2em;
+background:#000;
+animation:blink 1.2s steps(1) infinite;
+vertical-align:bottom;
 }
 
-@keyframes blink{50%{opacity:0;}}
+@keyframes blink{
+50%{opacity:0}
+}
 
-/* ===== KEYBOARD ===== */
+/* keyboard */
 .keyboard{
-    margin:6px;
-    display:flex;
-    flex-direction:column;
-    gap:4px;
+margin:6px;
+display:flex;
+flex-direction:column;
+gap:4px;
 }
 
 .row{
-    display:grid;
-    grid-template-columns:repeat(10,1fr);
-    gap:4px;
+display:grid;
+grid-template-columns:repeat(10,1fr);
+gap:4px;
 }
 
 .key{
-    height:42px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    background:#f8f9fa;
-    font-weight:600;
-    user-select:none;
+height:42px;
+border:1px solid #ccc;
+border-radius:8px;
+background:#f8f9fa;
+font-weight:600;
+font-size:14px;
+user-select:none;
 }
 
-/* Shift/Caps active */
 .key.active{
-    background:#4dabf7;
-    color:#fff;
+background:#4dabf7;
+color:#fff;
 }
 
-/* letter upper mode */
-.key.upper{
-    text-transform:uppercase;
+/* ROW1 */
+.row1{
+display:grid;
+grid-template-columns:repeat(10,1fr);
+gap:4px;
+}
+
+.salins{
+grid-column:span 4;
+}
+
+.arrow{grid-column:span 1;}
+.del{grid-column:span 2;}
+
+.row7{
+display:grid;
+grid-template-columns:1fr 1fr 3fr 1fr 2fr;
+gap:4px;
 }
 
 .footer{
-    text-align:center;
-    font-size:10px;
-    color:#666;
-    padding:4px;
+text-align:center;
+font-size:10px;
+color:#666;
+padding:4px;
 }
-
 </style>
 </head>
 
 <body>
 
+<div class="header">
 <h2>Keyboard Bahasa Sangihe</h2>
+<button id="clearAllTop">Hapus Semua</button>
+</div>
 
 <div id="editor"></div>
 
 <div class="keyboard">
 
-<!-- ROW 1 -->
+<div class="row row1">
+<button class="key salins" id="copyAll">Salin Semua</button>
+<button class="key arrow" id="left">←</button>
+<button class="key arrow" id="up">↑</button>
+<button class="key arrow" id="down">↓</button>
+<button class="key arrow" id="right">→</button>
+<button class="key del" id="del">Del</button>
+</div>
+
 <div class="row">
-<button class="key" data-value="́">́</button>
-<button class="key" data-value="-">-</button>
-<button class="key" data-value="=">=</button>
-<button class="key" data-value="[">[</button>
-<button class="key" data-value="]">]</button>
-<button class="key" data-value="\"> \ </button>
-<button class="key" data-value=";">;</button>
-<button class="key" data-value="'">'</button>
-<button class="key" data-value="/">/</button>
-<button class="key" data-action="back">⌫</button>
+<button class="key letter" data-low="́" data-upp="~">́</button>
+<button class="key letter" data-low="-" data-upp="_">-</button>
+<button class="key letter" data-low="=" data-upp="+">=</button>
+<button class="key letter" data-low="[" data-upp="{">[</button>
+<button class="key letter" data-low="]" data-upp="}">]</button>
+<button class="key letter" data-low="\\" data-upp="|">\</button>
+<button class="key letter" data-low=";" data-upp=":">;</button>
+<button class="key letter" data-low="'" data-upp='"'>'</button>
+<button class="key letter" data-low="/" data-upp="?">/</button>
+<button class="key" id="backBtn">⌫</button>
 </div>
 
-<!-- ROW 2 -->
 <div class="row">
-<button class="key" data-value="1">1</button><button class="key" data-value="2">2</button><button class="key" data-value="3">3</button><button class="key" data-value="4">4</button><button class="key" data-value="5">5</button><button class="key" data-value="6">6</button><button class="key" data-value="7">7</button><button class="key" data-value="8">8</button><button class="key" data-value="9">9</button><button class="key" data-value="0">0</button>
+<button class="key letter" data-low="1" data-upp="!">1</button>
+<button class="key letter" data-low="2" data-upp="@">2</button>
+<button class="key letter" data-low="3" data-upp="#">3</button>
+<button class="key letter" data-low="4" data-upp="$">4</button>
+<button class="key letter" data-low="5" data-upp="%">5</button>
+<button class="key letter" data-low="6" data-upp="^">6</button>
+<button class="key letter" data-low="7" data-upp="&">7</button>
+<button class="key letter" data-low="8" data-upp="*">8</button>
+<button class="key letter" data-low="9" data-upp="(">9</button>
+<button class="key letter" data-low="0" data-upp=")">0</button>
 </div>
 
-<!-- ROW 3 -->
 <div class="row">
-<button class="key" data-value="q">q</button><button class="key" data-value="w">w</button><button class="key" data-value="e">e</button><button class="key" data-value="r">r</button><button class="key" data-value="t">t</button><button class="key" data-value="y">y</button><button class="key" data-value="u">u</button><button class="key" data-value="i">i</button><button class="key" data-value="o">o</button><button class="key" data-value="p">p</button>
+<button class="key letter" data-low="q" data-upp="Q">q</button>
+<button class="key letter" data-low="w" data-upp="W">w</button>
+<button class="key letter" data-low="e" data-upp="E">e</button>
+<button class="key letter" data-low="r" data-upp="R">r</button>
+<button class="key letter" data-low="t" data-upp="T">t</button>
+<button class="key letter" data-low="y" data-upp="Y">y</button>
+<button class="key letter" data-low="u" data-upp="U">u</button>
+<button class="key letter" data-low="i" data-upp="I">i</button>
+<button class="key letter" data-low="o" data-upp="O">o</button>
+<button class="key letter" data-low="p" data-upp="P">p</button>
 </div>
 
-<!-- ROW 4 -->
 <div class="row">
-<button class="key" data-value="a">a</button><button class="key" data-value="s">s</button><button class="key" data-value="ĕ">ĕ</button><button class="key" data-value="d">d</button><button class="key" data-value="f">f</button><button class="key" data-value="g">g</button><button class="key" data-value="h">h</button><button class="key" data-value="j">j</button><button class="key" data-value="k">k</button><button class="key" data-value="l">l</button>
+<button class="key letter" data-low="a" data-upp="A">a</button>
+<button class="key letter" data-low="s" data-upp="S">s</button>
+<button class="key letter" data-low="ĕ" data-upp="Ĕ">ĕ</button>
+<button class="key letter" data-low="d" data-upp="D">d</button>
+<button class="key letter" data-low="f" data-upp="F">f</button>
+<button class="key letter" data-low="g" data-upp="G">g</button>
+<button class="key letter" data-low="h" data-upp="H">h</button>
+<button class="key letter" data-low="j" data-upp="J">j</button>
+<button class="key letter" data-low="k" data-upp="K">k</button>
+<button class="key letter" data-low="l" data-upp="L">l</button>
 </div>
 
-<!-- ROW 5 -->
 <div class="row">
-<button class="key" data-value="̣">̣</button>
-<button class="key" data-value="z">z</button><button class="key" data-value="x">x</button><button class="key" data-value="c">c</button><button class="key" data-value="v">v</button><button class="key" data-value="b">b</button><button class="key" data-value="n">n</button><button class="key" data-value="m">m</button><button class="key" data-value="l᷊">l᷊</button><button class="key" data-value=",">,</button>
+<button class="key letter" data-low="̣" data-upp="̣">̣ </button>
+<button class="key letter" data-low="z" data-upp="Z">z</button>
+<button class="key letter" data-low="x" data-upp="X">x</button>
+<button class="key letter" data-low="c" data-upp="C">c</button>
+<button class="key letter" data-low="v" data-upp="V">v</button>
+<button class="key letter" data-low="b" data-upp="B">b</button>
+<button class="key letter" data-low="n" data-upp="N">n</button>
+<button class="key letter" data-low="m" data-upp="M">m</button>
+<button class="key letter" data-low="l᷊" data-upp="L᷊">l᷊</button>
+<button class="key letter" data-low="," data-upp="<">,</button>
 </div>
 
-<!-- ROW 6 -->
-<div class="row">
-<button class="key" data-action="shift">Shift</button>
-<button class="key" data-action="caps">Caps</button>
-<button class="key" data-action="space">Space</button>
-<button class="key" data-value=".">.</button>
-<button class="key" data-action="enter">Enter</button>
-<button class="key"></button><button class="key"></button><button class="key"></button><button class="key"></button><button class="key"></button>
+<div class="row row7">
+<button class="key" id="shift">Shift</button>
+<button class="key" id="caps">Caps</button>
+<button class="key" id="space">Space</button>
+<button class="key letter" data-low="." data-upp=">">.</button>
+<button class="key" id="enter">Enter</button>
 </div>
 
 </div>
 
-<div class="footer">© 2026 Takashi NAKAGAWA [0634]</div>
+<div class="footer">© 2026 Takashi NAKAGAWA [1025]</div>
 
 <script>
-
-let text = "";
-let caret = 0;
-
+let buf = "";
+let cur = 0;
 let shift = false;
 let caps = false;
 
-const editor = document.getElementById("editor");
+const ed = document.getElementById("editor");
+const segmenter = new Intl.Segmenter("id", { granularity: "grapheme" });
 
-function isLetter(ch){
-    return /^[a-zĕl᷊]$/i.test(ch);
+function getGraphemes(text) {
+  return Array.from(segmenter.segment(text)).map(s => s.segment);
 }
 
-/* ===== 文字変換（入力用） ===== */
-function transform(ch){
-    if(!isLetter(ch)) return ch;
-    const upper = shift ^ caps;
-    return upper ? ch.toUpperCase() : ch.toLowerCase();
+function isUpper(){
+  return shift ^ caps;
 }
 
-/* ===== キー表示更新（安定方式） ===== */
-function updateKeyUI(){
-
-    document.querySelectorAll(".key").forEach(k=>{
-
-        const val = k.dataset.value;
-        const action = k.dataset.action;
-
-        if(action === "shift"){
-            k.classList.toggle("active", shift);
-            return;
-        }
-
-        if(action === "caps"){
-            k.classList.toggle("active", caps);
-            return;
-        }
-
-        if(!val) return;
-
-        if(isLetter(val)){
-            const upper = shift ^ caps;
-            k.classList.toggle("upper", upper);
-        } else {
-            k.classList.remove("upper");
-        }
-    });
-}
-
-/* ===== エディタ描画 ===== */
 function render(){
+  ed.textContent = ""; 
 
-    editor.innerHTML = "";
+  const chars = getGraphemes(buf);
+  
+  ed.append(chars.slice(0, cur).join(""));
 
-    editor.appendChild(document.createTextNode(text.slice(0, caret)));
+  const caret = document.createElement("span");
+  caret.id = "caret";
+  ed.appendChild(caret);
 
-    const caretEl = document.createElement("span");
-    caretEl.id = "caret";
-    editor.appendChild(caretEl);
+  ed.append(chars.slice(cur).join(""));
 
-    editor.appendChild(document.createTextNode(text.slice(caret)));
+  document.querySelectorAll(".letter").forEach(k=>{
+    k.textContent = isUpper() ? k.dataset.upp : k.dataset.low;
+  });
 
-    updateKeyUI();
+  document.getElementById("space").textContent = shift ? "Tab" : "Space";
+  document.getElementById("shift").classList.toggle("active", shift);
+  document.getElementById("caps").classList.toggle("active", caps);
 }
 
-/* ===== 文字挿入 ===== */
-function insert(raw){
+/* INPUT */
+function insert(v){
+  const chars = getGraphemes(buf);
+  chars.splice(cur, 0, v);
+  buf = chars.join("");
+  
+  cur++; 
+  if(shift) shift = false;
+  render();
+}
 
-    const ch = transform(raw);
+function backspace(){
+  if(cur <= 0) return;
+  const chars = getGraphemes(buf);
+  chars.splice(cur - 1, 1);
+  buf = chars.join("");
+  cur--;
+  render();
+}
 
-    text = text.slice(0, caret) + ch + text.slice(caret);
-    caret++;
+function delForward(){
+  const chars = getGraphemes(buf);
+  if(cur >= chars.length) return;
+  chars.splice(cur, 1);
+  buf = chars.join("");
+  render();
+}
 
-    if(shift){
-        shift = false;
-    }
-
+/* CURSOR */
+function move(dir){
+  const chars = getGraphemes(buf);
+  
+  if(dir === "left") {
+    cur = Math.max(0, cur - 1);
     render();
+    return;
+  }
+  if(dir === "right") {
+    cur = Math.min(chars.length, cur + 1);
+    render();
+    return;
+  }
+
+  // 安全な行分割ロジック
+  const lines = []; 
+  const lineStartIndices = []; 
+  
+  let currentLine = [];
+  lineStartIndices.push(0);
+  
+  for(let i = 0; i < chars.length; i++) {
+    currentLine.push(chars[i]);
+    if(chars[i] === "\n") {
+      lines.push(currentLine);
+      currentLine = [];
+      lineStartIndices.push(i + 1);
+    }
+  }
+  lines.push(currentLine); 
+
+  let currentLineIdx = 0;
+  let col = 0;
+  
+  for(let i = 0; i < lineStartIndices.length; i++) {
+    if(cur >= lineStartIndices[i]) {
+      currentLineIdx = i;
+      col = cur - lineStartIndices[i];
+    }
+  }
+
+  // UP / DOWN の位置計算（エッジケース対応版）
+  if(dir === "up"){
+    if(currentLineIdx === 0) return; 
+    let targetLineIdx = currentLineIdx - 1;
+    let maxCol = lines[targetLineIdx].length;
+    // 行末の改行文字そのものの手前にカーソルを制限する
+    if(maxCol > 0 && lines[targetLineIdx][maxCol - 1] === "\n") maxCol--; 
+    
+    let targetCol = Math.min(col, maxCol);
+    cur = lineStartIndices[targetLineIdx] + targetCol;
+  }
+
+  if(dir === "down"){
+    if(currentLineIdx === lines.length - 1) return; 
+    let targetLineIdx = currentLineIdx + 1;
+    let maxCol = lines[targetLineIdx].length;
+    // 最終行でなくても、行末の改行文字そのものの手前に制限する
+    if(maxCol > 0 && lines[targetLineIdx][maxCol - 1] === "\n") maxCol--;
+
+    let targetCol = Math.min(col, maxCol);
+    cur = lineStartIndices[targetLineIdx] + targetCol;
+  }
+
+  render();
 }
 
-/* ===== イベント ===== */
-document.querySelectorAll(".key").forEach(k=>{
-
-    k.addEventListener("click", ()=>{
-
-        const val = k.dataset.value;
-        const action = k.dataset.action;
-
-        if(action === "shift"){
-            shift = !shift;
-            render();
-        }
-
-        else if(action === "caps"){
-            caps = !caps;
-            render();
-        }
-
-        else if(action === "back"){
-            text = text.slice(0,-1);
-            caret = Math.max(0, caret-1);
-            render();
-        }
-
-        else if(action === "space"){
-            insert(" ");
-        }
-
-        else if(action === "enter"){
-            insert("\n");
-        }
-
-        else if(val){
-            insert(val);
-        }
-    });
+/* EVENTS */
+document.querySelectorAll(".letter").forEach(k=>{
+  k.onclick = () => insert(isUpper() ? k.dataset.upp : k.dataset.low);
 });
 
-render();
+document.getElementById("shift").onclick = () => {
+  shift = !shift;
+  render();
+};
 
+document.getElementById("caps").onclick = () => {
+  caps = !caps;
+  render();
+};
+
+document.getElementById("space").onclick = () => insert(shift ? "\t" : " ");
+document.getElementById("enter").onclick = () => insert("\n");
+
+document.getElementById("backBtn").onclick = backspace;
+document.getElementById("del").onclick = delForward;
+
+document.getElementById("left").onclick = () => move("left");
+document.getElementById("right").onclick = () => move("right");
+document.getElementById("up").onclick = () => move("up");
+document.getElementById("down").onclick = () => move("down");
+
+document.getElementById("copyAll").onclick = () => navigator.clipboard.writeText(buf);
+document.getElementById("clearAllTop").onclick = () => {
+  buf = ""; cur = 0; render();
+};
+
+render();
 </script>
 
 </body>
