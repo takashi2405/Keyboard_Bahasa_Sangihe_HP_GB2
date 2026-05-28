@@ -415,6 +415,32 @@ document.getElementById("clearAllTop").onclick = () => {
   buf = ""; cur = 0; render();
 };
 
+/* 📋 貼り付け（Paste）イベントの処理 */
+// エディタ部分、またはページ全体での貼り付けを監視
+document.addEventListener("paste", (e) => {
+  // ブラウザ標準の貼り付け動作（そのまま文字が入ってしまう挙動）を一旦ストップ
+  e.preventDefault();
+
+  // クリップボードからテキストデータを取得
+  const pastedText = (e.clipboardData || window.clipboardData).getData("text");
+
+  if (pastedText) {
+    // 取得したテキストを一文字ずつ（または塊で）現在のカーソル位置に挿入
+    // 複数文字の一括挿入に対応するため、insert関数をベースに処理
+    const chars = getGraphemes(buf);
+    const pastedChars = getGraphemes(pastedText);
+    
+    chars.splice(cur, 0, ...pastedChars);
+    buf = chars.join("");
+    
+    // カーソル位置を貼り付けた文字数分だけ進める
+    cur += pastedChars.length;
+    
+    // 画面を再描画
+    render();
+  }
+});
+
 render();
 </script>
 
