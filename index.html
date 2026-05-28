@@ -6,7 +6,7 @@
 <title>Keyboard Bahasa Sangihe</title>
 
 <style>
-*{box-sizing:border-box;}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -14,31 +14,29 @@ body {
   display: flex;
   flex-direction: column;
   font-family: "Noto Sans", Arial, sans-serif;
-  background-color: #777777; /* 💡 背景色をグレーに変更 */
+  background-color: #777777;
 }
 
 .header {
   display: flex !important;
-  flex-direction: row !important;   /* スマホでもPCでも、絶対に横並び（1行） */
-  justify-content: space-between !important; /* 左端と右端に綺麗に振り分ける */
+  flex-direction: row !important;
+  justify-content: space-between !important;
   align-items: center !important;
-  gap: 8px !important;              /* タイトルとボタンの間の最低限の隙間 */
+  gap: 8px !important;
   padding: 8px !important;
   width: 100% !important;
 }
 
 h2 {
   margin: 0 !important;
-  /* 💡 画面幅（vw）に連動させ、狭いスマホでも1行に収まるよう文字サイズを自動で最適化します */
   font-size: min(18px, 4.5vw) !important;
-  text-align: left !important;       /* タイトルテキストは左寄せ */
-  white-space: nowrap !important;    /* 絶対に途中で自動改行（2行に分割）させない */
-  flex: 1 !important;                /* 利用可能なスペースを柔軟に使う */
-  overflow: hidden !important;       /* 万が一の表示崩れ防止 */
-  color: #ffffff !important;         /* 💡 指示通り、タイトルを白に変更 */
+  text-align: left !important;
+  white-space: nowrap !important;
+  flex: 1 !important;
+  overflow: hidden !important;
+  color: #ffffff !important;
 }
 
-/* 💡 タイトルの下に追加する著作権表示のスタイル */
 .header-copyright {
   font-size: 10px !important;
   color: #ffffff !important;
@@ -48,88 +46,86 @@ h2 {
 }
 
 #clearAllTop {
-  position: static !important;       /* 絶対配置は使わず、Flexboxの右端に綺麗に配置 */
-  padding: 12px 12px !important;
+  position: static !important;
+  padding: 12px 10px !important;
   border: 0px solid #ccc !important;
   border-radius: 6px !important;
   background: #f8f9fa !important;
-  font-size: 14px !important;        
-  /* 💡 修正：Salin Semuaと同じ太文字（font-weight: 600）を直接指定しました */
-  font-weight: 600 !important;
-  flex-shrink: 0 !important;         /* ボタンの形が画面幅に潰されないように固定 */
+  font-size: 11px !important;
+  font-weight: bold !important;
+  flex-shrink: 0 !important;
   width: fit-content !important;
 }
 
-/* 💻 画面の横幅が 480px 以上のとき（PCやタブレット）の設定 */
 @media (min-width: 480px) {
   h2 {
-    font-size: 18px !important;      /* PCなどの十分な広さがある画面では18pxに固定 */
+    font-size: 18px !important;
+  }
+  #clearAllTop {
+    font-size: 12px !important;
   }
 }
 
-#editor{
-  flex:1;
-  margin:6px;
-  padding:10px;
-  border:0px solid #ccc;
-  border-radius:10px;
-  font-size:20px;
-  white-space:pre-wrap;
-  overflow:auto;
-  word-break:break-word;
-  outline: none;                     /* タップ時の余計な枠線を消す */
-  background-color: #ffffff;         /* 💡 元の通り、テキストボックスは白のまま維持 */
-  color: #000000;                    /* 💡 文字色も元の黒のまま維持 */
+#editor {
+  flex: 1;
+  margin: 6px;
+  padding: 10px;
+  border: 0px solid #ccc;
+  border-radius: 10px;
+  font-size: 20px;
+  white-space: pre-wrap;
+  overflow: auto;
+  word-break: break-word;
+  outline: none;
+  background-color: #ffffff;
+  color: #000000;
 }
 
-/* caret */
-#caret{
-  display:inline-block;
-  width:1px;
-  height:1.2em;
-  background:#000;                   /* 💡 元の通り、カーソルは黒のまま維持 */
-  animation:blink 1.2s steps(1) infinite;
-  vertical-align:bottom;
+#caret {
+  display: inline-block;
+  width: 1px;
+  height: 1.2em;
+  background: #000;
+  animation: blink 1.2s steps(1) infinite;
+  vertical-align: bottom;
 }
 
-@keyframes blink{
-  50%{opacity:0}
+@keyframes blink {
+  50% { opacity: 0; }
 }
 
-/* keyboard */
-.keyboard{
-  margin:6px;
-  display:flex;
-  flex-direction:column;
-  gap:4px;
+.keyboard {
+  margin: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.row{
-  display:grid;
-  grid-template-columns:repeat(10,1fr);
-  gap:4px;
+.row {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
 }
 
 .key {
-  height:42px;
-  border:0px solid #ccc;
-  border-radius:8px;
-  background:#f8f9fa;                /* 💡 元の通り、キーの色を変更前に戻しました */
-  font-weight:600;
-  font-size:14px;
-  user-select:none;
+  height: 42px;
+  border: 0px solid #ccc;
+  border-radius: 8px;
+  background: #f8f9fa;
+  font-weight: 600;
+  font-size: 14px;
+  user-select: none;
 }
 
-.key.active{
-  background:#4dabf7;
-  color:#fff;
+.key.active {
+  background: #4dabf7;
+  color: #fff;
 }
 
-/* 💡 キーやボタンを押した瞬間の沈み込みエフェクト（変更前の設定を維持） */
 .key:active, #clearAllTop:active {
-  transform: scale(0.95);       
-  background: #e0e0e0;          
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); 
+  transform: scale(0.95);
+  background: #e0e0e0;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
   border-color: #bbb;
 }
 
@@ -138,31 +134,23 @@ h2 {
   box-shadow: none;
 }
 
-/* ROW1 */
-.row1{
-  display:grid;
-  grid-template-columns:repeat(10,1fr);
-  gap:4px;
+.row1 {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
 }
 
-.salins{
-  grid-column:span 4;
+.salins {
+  grid-column: span 4;
 }
 
-.arrow{grid-column:span 1;}
-.del{grid-column:span 2;}
+.arrow { grid-column: span 1; }
+.del { grid-column: span 2; }
 
-.row7{
-  display:grid;
-  grid-template-columns:1fr 1fr 3fr 1fr 2fr;
-  gap:4px;
-}
-
-.footer{
-  text-align:center;
-  font-size:10px;
-  color:#ffffff;                     /* 💡 指示通り、コピーライトの部分を白に変更 */
-  padding:4px;
+.row7 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 3fr 1fr 2fr;
+  gap: 4px;
 }
 </style>
 </head>
@@ -172,7 +160,7 @@ h2 {
 <div class="header">
   <div style="display: flex; flex-direction: column; flex: 1;">
     <h2>Keyboard Bahasa Sangihe</h2>
-    <div class="header-copyright">© 2026 Takashi NAKAGAWA [versi 1408]</div>
+    <div class="header-copyright">© 2026 Takashi NAKAGAWA [1532]</div>
   </div>
   <button id="clearAllTop">Hapus Semua</button>
 </div>
@@ -265,8 +253,6 @@ h2 {
 
 </div>
 
-<div class="footer">© 2026 Takashi NAKAGAWA [1338]</div>
-
 <script>
 let buf = "";
 let cur = 0;
@@ -295,4 +281,158 @@ function render(){
   caret.id = "caret";
   ed.appendChild(caret);
 
-  ed.append(chars.slice(
+  ed.append(chars.slice(cur).join(""));
+
+  document.querySelectorAll(".letter").forEach(k=>{
+    k.textContent = isUpper() ? k.dataset.upp : k.dataset.low;
+  });
+
+  document.getElementById("space").textContent = (shift || caps) ? "Tab" : "Space";
+  document.getElementById("shift").classList.toggle("active", shift);
+  document.getElementById("caps").classList.toggle("active", caps);
+}
+
+/* INPUT */
+function insert(v){
+  const chars = getGraphemes(buf);
+  chars.splice(cur, 0, v);
+  buf = chars.join("");
+  
+  cur++; 
+  if(shift) shift = false;
+  render();
+}
+
+function backspace(){
+  if(cur <= 0) return;
+  const chars = getGraphemes(buf);
+  chars.splice(cur - 1, 1);
+  buf = chars.join("");
+  cur--;
+  render();
+}
+
+function delForward(){
+  const chars = getGraphemes(buf);
+  if(cur >= chars.length) return;
+  chars.splice(cur, 1);
+  buf = chars.join("");
+  render();
+}
+
+/* CURSOR */
+function move(dir){
+  const chars = getGraphemes(buf);
+  
+  if(dir === "left") {
+    cur = Math.max(0, cur - 1);
+    render();
+    return;
+  }
+  if(dir === "right") {
+    cur = Math.min(chars.length, cur + 1);
+    render();
+    return;
+  }
+
+  const lines = []; 
+  const lineStartIndices = []; 
+  
+  let currentLine = [];
+  lineStartIndices.push(0);
+  
+  for(let i = 0; i < chars.length; i++) {
+    currentLine.push(chars[i]);
+    if(chars[i] === "\n") {
+      lines.push(currentLine);
+      currentLine = [];
+      lineStartIndices.push(i + 1);
+    }
+  }
+  lines.push(currentLine); 
+
+  let currentLineIdx = 0;
+  let col = 0;
+  
+  for(let i = 0; i < lineStartIndices.length; i++) {
+    if(cur >= lineStartIndices[i]) {
+      currentLineIdx = i;
+      col = cur - lineStartIndices[i];
+    }
+  }
+
+  if(dir === "up"){
+    if(currentLineIdx === 0) return; 
+    let targetLineIdx = currentLineIdx - 1;
+    let maxCol = lines[targetLineIdx].length;
+    if(maxCol > 0 && lines[targetLineIdx][maxCol - 1] === "\n") maxCol--; 
+    
+    let targetCol = Math.min(col, maxCol);
+    cur = lineStartIndices[targetLineIdx] + targetCol;
+  }
+
+  if(dir === "down"){
+    if(currentLineIdx === lines.length - 1) return; 
+    let targetLineIdx = currentLineIdx + 1;
+    let maxCol = lines[targetLineIdx].length;
+    if(maxCol > 0 && lines[targetLineIdx][maxCol - 1] === "\n") maxCol--;
+
+    let targetCol = Math.min(col, maxCol);
+    cur = lineStartIndices[targetLineIdx] + targetCol;
+  }
+
+  render();
+}
+
+/* EVENTS */
+document.querySelectorAll(".letter").forEach(k=>{
+  k.onclick = () => insert(isUpper() ? k.dataset.upp : k.dataset.low);
+});
+
+document.getElementById("shift").onclick = () => {
+  shift = !shift;
+  render();
+};
+
+document.getElementById("caps").onclick = () => {
+  caps = !caps;
+  render();
+};
+
+document.getElementById("space").onclick = () => insert((shift || caps) ? "\t" : " ");
+document.getElementById("enter").onclick = () => insert("\n");
+
+document.getElementById("backBtn").onclick = backspace;
+document.getElementById("del").onclick = delForward;
+
+document.getElementById("left").onclick = () => move("left");
+document.getElementById("right").onclick = () => move("right");
+document.getElementById("up").onclick = () => move("up");
+document.getElementById("down").onclick = () => move("down");
+
+document.getElementById("copyAll").onclick = () => navigator.clipboard.writeText(buf);
+document.getElementById("clearAllTop").onclick = () => {
+  buf = ""; cur = 0; render();
+};
+
+document.addEventListener("paste", (e) => {
+  e.preventDefault();
+  const pastedText = (e.clipboardData || window.clipboardData).getData("text");
+
+  if (pastedText) {
+    const chars = getGraphemes(buf);
+    const pastedChars = getGraphemes(pastedText);
+    
+    chars.splice(cur, 0, ...pastedChars);
+    buf = chars.join("");
+    
+    cur += pastedChars.length;
+    render();
+  }
+});
+
+render();
+</script>
+
+</body>
+</html>
